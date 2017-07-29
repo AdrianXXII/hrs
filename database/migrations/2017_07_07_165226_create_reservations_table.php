@@ -15,7 +15,7 @@ class CreateReservationsTable extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('room_id',false,true)->length(10);
+            $table->integer('roomtype_id',false,true)->length(10);
             $table->timestamp('bookdate')->nullable();
             $table->timestamp('reservation_start')->nullable();
             $table->timestamp('reservation_end')->nullable();
@@ -28,7 +28,7 @@ class CreateReservationsTable extends Migration
             $table->integer('status')->length(1)->nullable();
             $table->boolean('active')->nullable();
 
-            $table->foreign('room_id')->references('id')->on('rooms');
+            $table->foreign('roomtype_id')->references('id')->on('roomtypes');
         });
     }
 
@@ -40,7 +40,7 @@ class CreateReservationsTable extends Migration
     public function down()
     {
         Schema::table('reservations', function (Blueprint $table) {
-            $table->dropForeign('room_id');
+            $table->dropForeign('reservations_roomtype_id_foreign');
         });
         Schema::dropIfExists('reservations');
     }

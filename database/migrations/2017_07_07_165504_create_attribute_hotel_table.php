@@ -29,9 +29,9 @@ class CreateAttributeHotelTable extends Migration
      */
     public function down()
     {
-        Schema::table('reservations', function (Blueprint $table) {
-            $table->dropForeign('hotel_id');
-            $table->dropForeign('attribute_id');
+        Schema::table('attribute_hotel', function (Blueprint $table) {
+            $table->dropForeign('attribute_hotel_hotel_id_foreign');
+            $table->dropForeign('attribute_hotel_attribute_id_foreign');
         });
         Schema::dropIfExists('attribute_hotel');
     }

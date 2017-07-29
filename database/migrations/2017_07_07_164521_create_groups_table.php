@@ -33,7 +33,7 @@ class CreateGroupsTable extends Migration
     {
 
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('group_id');
+            $table->dropForeign('users_group_id_foreign');
         });
         Schema::dropIfExists('groups');
     }

@@ -30,8 +30,8 @@ class CreateHotelUserTable extends Migration
     public function down()
     {
         Schema::table('hotel_user', function (Blueprint $table) {
-            $table->dropForeign('hotel_id');
-            $table->dropForeign('user_id');
+            $table->dropForeign('hotel_user_user_id_foreign');
+            $table->dropForeign('hotel_user_hotel_id_foreign');
         });
         Schema::dropIfExists('hotel_user');
     }
