@@ -68,4 +68,13 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return redirect()->to('login')->with('warning', 'Registration is disabled.');
+    }
 }

@@ -14,7 +14,7 @@ class InsertGroupsTabel extends Migration
     public function up()
     {
         DB::table('groups')->insert(array('name'=>'Adminstrator'));
-        DB::table('groups')->insert(array('name'=>'Hotelangestler'));
+        DB::table('groups')->insert(array('name'=>'Hotelangestellter'));
         DB::table('groups')->insert(array('name'=>'Hotelmanager'));
     }
 

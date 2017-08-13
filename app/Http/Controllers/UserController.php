@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\Http\Requests\StoreUserPostRequest;
+use App\Http\Requests\UpdateUserPostRequest;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -18,7 +20,7 @@ class UserController extends Controller
     {
         //
         $users = User::where('active',true)->get();
-        return $users;
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -29,8 +31,8 @@ class UserController extends Controller
     public function create()
     {
         //
-        $group = Group::all();
-        return "create";
+        $groups = Group::all();
+        return view('users.create', compact('groups'));
     }
 
     /**
@@ -39,7 +41,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserPostRequest $request)
     {
         //get Group
         $groupId = $request->get('groupId');
@@ -51,11 +53,11 @@ class UserController extends Controller
         $user->firstname = $request->get('firstname');
         $user->lastname = $request->get('lastname');
         $user->email = $request->get('email');
-        $user->password = $request->get('password');
+        $user->password = bcrypt($request->get('password'));
         $user->active = true;
         $group->users()->save($user);
 
-        return "store";
+        return redirect(route('users.index'));
     }
 
     /**
@@ -80,8 +82,9 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        $groups = Group::all();
         $user = User::where('id',$id)->where('active',true)->first();
-        return $user;
+        return view('users.edit',compact('user','groups'));
     }
 
     /**
@@ -91,7 +94,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserPostRequest $request, $id)
     {
         //get Group
         $groupId = $request->get('groupId');
@@ -99,14 +102,12 @@ class UserController extends Controller
 
         //Create new User
         $user = User::find($id);
-        $user->name = $request->get('name');
         $user->firstname = $request->get('firstname');
         $user->lastname = $request->get('lastname');
-        $user->email = $request->get('email');
-        $user->password = $request->get('password');
+        $user->lastname = $request->get('email');
         $group->users()->save($user);
 
-        return
+        return redirect(route('users.index'));
     }
 
     /**
@@ -122,6 +123,6 @@ class UserController extends Controller
         $user->active = false;
         $user->save();
 
-        return $user;
+        return redirect(route('users.index'));
     }
 }

@@ -15,6 +15,7 @@ class AlterUsersTabel extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->rememberToken();
+            $table->unique('name');
         });
     }
 
