@@ -93,23 +93,25 @@
                 </div>
                 <hr>
                 <div class="flex-center">
-                <table class="table table-striped">
-                    <caption><h1>DEBUG INFORMATION</h1></caption>
-                    <thead>
-                    <tr>
-                        <th>User Object</th>
-                        <th>User Group</th>
-                        <th>User Hotels</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{ Auth::user()->name }}</td>
-                        <td>{{ Auth::user()->group }}</td>
-                        <td>{{ Auth::user()->hotels }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+                @if (Auth::check())
+                    <table class="table table-striped">
+                        <caption><h1>DEBUG INFORMATION</h1></caption>
+                        <thead>
+                        <tr>
+                            <th>User Object</th>
+                            <th>User Group</th>
+                            <th>User Hotels</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ Auth::user()->name }}</td>
+                            <td>{{ Auth::user()->group }}</td>
+                            <td>{{ Auth::user()->hotels }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                @endif
                 </div>
             </div>
         </div>
