@@ -14,6 +14,10 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+.deleteBtn {
+  display: inline-block;
+}
+
 body {
   margin: 0;
 }

@@ -11,7 +11,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12 col-sm-10">
-                                <form action="{{ route('users.update', ['id' => $user]) }}" class="form-horizontal" method="POST">
+                                <form action="{{ route('users.update', ['id' => $user->id]) }}" class="form-horizontal" method="POST">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="_method" value="PUT">
 
