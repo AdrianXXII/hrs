@@ -82,12 +82,34 @@
                     Laravel
                 </div>
 
+
+
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
+                </div>
+                <hr>
+                <div class="flex-center">
+                <table class="table table-striped">
+                    <caption><h1>DEBUG INFORMATION</h1></caption>
+                    <thead>
+                    <tr>
+                        <th>User Object</th>
+                        <th>User Group</th>
+                        <th>User Hotels</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ Auth::user()->name }}</td>
+                        <td>{{ Auth::user()->group }}</td>
+                        <td>{{ Auth::user()->hotels }}</td>
+                    </tr>
+                    </tbody>
+                </table>
                 </div>
             </div>
         </div>

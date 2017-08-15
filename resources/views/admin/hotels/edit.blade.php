@@ -164,7 +164,7 @@
                                             <button type="submit" class="btn btn-primary">
                                                 <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Speichern
                                             </button>
-                                            <a href="{{ route('users.index') }}" class="btn btn-default">
+                                            <a href="{{ route('admin.hotels.index') }}" class="btn btn-default">
                                                 <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Abbrechen
                                             </a>
                                         </div>

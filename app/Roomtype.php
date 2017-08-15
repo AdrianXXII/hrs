@@ -4,6 +4,8 @@ namespace App;
 
 class Roomtype extends Model
 {
+    use InactivateTrait;
+
     public function hotels()
     {
         return $this->belongsTo('App\Hotel');

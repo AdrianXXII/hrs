@@ -16,11 +16,12 @@
                                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Neu
                                     </a>
                                 </div>
-                                <table class="table table-striped">
+                                <table class="table table-striped table-responsive">
                                     <thead>
                                         <tr>
                                             <th>Hotelname</th>
-                                            <th>Email</th>
+                                            <th>Adresse</th>
+                                            <th>Hotelbenutzer</th>
                                             <th>
 
                                             </th>
@@ -30,7 +31,14 @@
                                         @foreach($hotels as $hotel)
                                             <tr>
                                                 <td>{{ $hotel->name }}</td>
-                                                <td>{{ $hotel->email }}</td>
+                                                <td> {{ $hotel->street . ', ' . $hotel->area }}</td>
+                                                <td>
+                                                    <ul class="list-unstyled">
+                                                    @foreach ($hotel->users as $user)
+                                                        <li class="">{{ $user->name }}</li>
+                                                    @endforeach
+                                                    <ul>
+                                                </td>
                                                 <td>
                                                     <a href="{{ route('admin.hotels.edit', ['id' => $hotel->id]) }}" class="btn btn-primary">
                                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
