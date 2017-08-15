@@ -28,9 +28,14 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/users','UserController@store')->name('users.save');
 });
 
+Route::group(['middleware' => 'admin'], function() {
+    Route::get('/admin/hotels', 'AdminHotelsController@index')->name('admin.hotels.index');
+    Route::get('/admin/hotels/new', 'AdminHotelsController@create')->name('admin.hotels.create');
+    Route::get('admin/hotels/{id}/edit','AdminHotelsController@edit')->name('admin.hotels.edit');
+    Route::put('admin/hotels/{id}','AdminHotelsController@update')->name('admin.hotels.update');
+    Route::delete('admin/hotels/{id}','AdminHotelsController@destroy')->name('admin.hotels.delete');
+    Route::post('/admin/hotels', 'AdminHotelsController@store')->name('admin.hotels.save');
+});
+
 Auth::routes();
 
-Route::get('hotels', 'HotelsController@index');
-Route::get('hotels/{hotel}', 'HotelsController@show');
-Route::get('hotels/create', 'HotelsController@create');
-Route::post('hotels', 'HotelsController@store');
