@@ -12,7 +12,7 @@
                         <div class="row">
                             <div class="col-lg-12 col-sm-12">
                                 <div class="float-right">
-                                    <a href="{{ route('admin.hotels.create') }}" class="btn btn-primary">
+                                    <a href="{{ route('backend.hotels.create') }}" class="btn btn-primary">
                                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Neu
                                     </a>
                                 </div>
@@ -40,10 +40,10 @@
                                                     <ul>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('admin.hotels.edit', ['id' => $hotel->id]) }}" class="btn btn-primary">
+                                                    <a href="{{ route('backend.hotels.edit', ['id' => $hotel->id]) }}" class="btn btn-primary">
                                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                                     </a>
-                                                    <form method="post" action="{{ route('admin.hotels.delete', ['id' => $hotel->id]) }}">
+                                                    <form method="post" action="{{ route('backend.hotels.delete', ['id' => $hotel->id]) }}">
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         <button type="submit" class="btn btn-danger center-block">

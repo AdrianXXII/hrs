@@ -45,7 +45,7 @@ class Hotel extends Model
         return true;
     }
 
-    public function syncUsers(array $usersId)
+    public function syncUsers(array $usersId = null)
     {
         $this->users()->sync($usersId);
     }

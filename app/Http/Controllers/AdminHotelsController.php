@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Hotel;
 use App\User;
 use App\Group;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreHotelPostRequest;
+use App\Http\Requests\UpdateHotelPostRequest;
 
 class AdminHotelsController extends Controller
 {
@@ -13,12 +14,12 @@ class AdminHotelsController extends Controller
     {
         $hotels = $hotels->all()->where('active', true);
 
-        return view('admin.hotels.index', compact('hotels'));
+        return view('backend.hotels.index', compact('hotels'));
     }
 
     public function create()
     {
-        return view('admin.hotels.create');
+        return view('backend.hotels.create');
     }
 
     public function edit(Hotel $hotel)
@@ -27,73 +28,46 @@ class AdminHotelsController extends Controller
             return $user->group_id == Group::ADMINISTRATOR;
         });
 
-        return view('admin.hotels.edit',compact('hotel', 'users'));
+        return view('backend.hotels.edit',compact('hotel', 'users'));
     }
 
-    public function update(Hotel $hotel, Request $request)
+    public function update(UpdateHotelPostRequest $request, Hotel $hotel)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'description' => 'required',
-            'stars' => 'required|integer|between:1,5',
-            'street' => 'required',
-            'postalcode' => 'required',
-            'area' => 'required',
-            'phone' => 'required',
-            'fax' => 'required',
-            'email' => 'required|email'
-        ]);
 
-        $hotel->syncUsers($request->managers);
-        //foreach($request->managers as $managerid)
-        //{
-        //    $user = User::find($managerid);
-        //    $hotel->addUser($user);
-        //}
+        $hotel->syncUsers($request->get('managers'));
 
-        $hotel->name = request('name');
-        $hotel->description = request('description');
-        $hotel->stars = request('stars');
-        $hotel->street = request('street');
-        $hotel->postalcode = request('postalcode');
-        $hotel->area = request('area');
-        $hotel->telephone = request('phone');
-        $hotel->fax = request('fax');
-        $hotel->email = request('email');
+        $hotel->name = $request->get('name');
+        $hotel->description = $request->get('description');
+        $hotel->stars = $request->get('stars');
+        $hotel->street = $request->get('street');
+        $hotel->postalcode = $request->get('postalcode');
+        $hotel->area = $request->get('area');
+        $hotel->telephone = $request->get('phone');
+        $hotel->fax = $request->get('fax');
+        $hotel->email = $request->get('email');
 
         $hotel->update();
 
-        return redirect(route('admin.hotels.index'));
+        return redirect(route('backend.hotels.index'));
     }
 
-    public function store(Request $request)
+    public function store(StoreHotelPostRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'description' => 'required',
-            'stars' => 'required|integer|between:1,5',
-            'street' => 'required',
-            'postalcode' => 'required',
-            'area' => 'required',
-            'phone' => 'required',
-            'fax' => 'required',
-            'email' => 'required|email'
-        ]);
 
         (new Hotel([
-            'name' => request('name'),
-            'description' => request('description'),
-            'stars' => request('stars'),
-            'street' => request('street'),
-            'postalcode' => request('postalcode'),
-            'area' => request('area'),
-            'telephone' => request('phone'),
-            'fax' => request('fax'),
-            'email' => request('email'),
+            'name' => $request->get('name'),
+            'description' => $request->get('description'),
+            'stars' => $request->get('stars'),
+            'street' => $request->get('street'),
+            'postalcode' => $request->get('postalcode'),
+            'area' => $request->get('area'),
+            'telephone' => $request->get('phone'),
+            'fax' => $request->get('fax'),
+            'email' => $request->get('email'),
             'active' => 1
         ]))->save();
 
-        return redirect(route('admin.hotels.index'));
+        return redirect(route('backend.hotels.index'));
     }
 
     public function destroy(Hotel $hotel)
