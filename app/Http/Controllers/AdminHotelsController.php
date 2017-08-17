@@ -27,7 +27,6 @@ class AdminHotelsController extends Controller
             return $user->group_id == Group::ADMINISTRATOR;
         });
 
-        $hotel->where('active',true)->first();
         return view('admin.hotels.edit',compact('hotel', 'users'));
     }
 
