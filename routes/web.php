@@ -8,6 +8,10 @@ Route::get('/hotels', 'HotelsController@index')->name("hotels");
 
 Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'admin'], function(){
+        Route::get('/backend', function() {
+            return view('backend.index');
+        })->name('backend.index');
+
         Route::get('/users', 'UserController@index')->name('users.index');
         Route::get('/users/new','UserController@create')->name('users.create');
         Route::get('/users/{id}/edit','UserController@edit')->name('users.edit');
