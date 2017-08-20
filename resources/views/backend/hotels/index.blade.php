@@ -46,7 +46,7 @@
                                                     <form method="post" action="{{ route('backend.hotels.delete', ['id' => $hotel->id]) }}">
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="_method" value="DELETE">
-                                                        <button type="submit" class="btn btn-danger center-block">
+                                                        <button type="submit" class="btn btn-danger center-block deleteBtn">
                                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                         </button>
                                                     </form>

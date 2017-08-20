@@ -30,6 +30,14 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/backend/hotels/{hotel}/edit','AdminHotelsController@edit')->name('backend.hotels.edit');
         Route::put('/backend/hotels/{hotel}','AdminHotelsController@update')->name('backend.hotels.update');
         Route::delete('/backend/hotels/{hotel}','AdminHotelsController@destroy')->name('backend.hotels.delete');
+
+        // Categories
+        Route::get('/backend/categories', 'AdminCategoriesController@index')->name('backend.categories.index');
+        Route::get('/backend/categories/new', 'AdminCategoriesController@create')->name('backend.categories.create');
+        Route::post('/backend/categories', 'AdminCategoriesController@store')->name('backend.categories.save');
+        Route::get('/backend/categories/{category}/edit','AdminCategoriesController@edit')->name('backend.categories.edit');
+        Route::put('/backend/categories/{category}','AdminCategoriesController@update')->name('backend.categories.update');
+        Route::delete('/backend/categories/{category}','AdminCategoriesController@destroy')->name('backend.categories.delete');
     });
 
     Route::group(['middleware' => 'manager'], function() {

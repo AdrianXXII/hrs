@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Hotel;
 use App\User;
 use App\Group;
-use App\Http\Requests\StoreHotelPostRequest;
+use App\Http\Requests\AdminStoreHotelPostRequest as StoreHotelPostRequest;
 use App\Http\Requests\AdminUpdateHotelPostRequest as UpdateHotelPostRequest;
 
 class AdminHotelsController extends Controller
