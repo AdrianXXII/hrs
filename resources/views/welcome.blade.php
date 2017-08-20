@@ -79,17 +79,15 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    HRS Schnellnavigation
                 </div>
 
 
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a style="color: red" href="{{ route('backend.index') }}">Backend Menü (ADMIN ROLLE)</a>
+                    <a href="{{ route('manager.hotels.index') }}">Manager Hotels (MANAGER ROLLE)</a>
+                    <a href="{{ route('hotels.index') }}">Hotelansicht (GAST)</a>
                 </div>
                 <hr>
                 <div class="flex-center">

@@ -4,7 +4,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name("home");
 
-Route::get('/hotels', 'HotelsController@index')->name("hotels");
+Route::get('/hotels', 'HotelsController@index')->name("hotels.index");
 
 Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'admin'], function(){

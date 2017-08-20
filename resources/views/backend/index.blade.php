@@ -8,7 +8,7 @@
         <div class="col-lg-4 jumbotron">
             <h2>Benutzerverwaltung</h2>
             <p>Benutzer erstellen, bearbeiten und löschen. </p>
-            <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Zur Benutzerverwaltung</a>
+            <a href="{{ route('users.index') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Zur Benutzerverwaltung</a>
         </div>
 
         <div class="col-lg-4 jumbotron">
