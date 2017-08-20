@@ -6,7 +6,7 @@ use App\Hotel;
 use App\User;
 use App\Group;
 use App\Http\Requests\StoreHotelPostRequest;
-use App\Http\Requests\UpdateHotelPostRequest;
+use App\Http\Requests\AdminUpdateHotelPostRequest as UpdateHotelPostRequest;
 
 class AdminHotelsController extends Controller
 {
@@ -24,9 +24,9 @@ class AdminHotelsController extends Controller
 
     public function edit(Hotel $hotel)
     {
-        $users = User::all()->reject(function ($user) {
-            return $user->group_id == Group::ADMINISTRATOR;
-        });
+        $users = User::where('active', true)
+            ->where('group_id', Group::HOTELMANAGER)
+            ->get();
 
         return view('backend.hotels.edit',compact('hotel', 'users'));
     }

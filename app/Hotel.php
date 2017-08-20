@@ -33,6 +33,11 @@ class Hotel extends Model
         return count($this->users->where('id', $user->id));
     }
 
+    public function hasAttribute(Attribute $attribute)
+    {
+        return count($this->attributes()->get()->where('id', $attribute->id));
+    }
+
     public function addUser(User $user)
     {
         if (! $user->active OR $user->group_id == Group::ADMINISTRATOR OR $this->isManagedBy($user))
@@ -48,5 +53,24 @@ class Hotel extends Model
     public function syncUsers(array $usersId = null)
     {
         $this->users()->sync($usersId);
+    }
+
+    public function syncAttributes(array $attributeId = null)
+    {
+        $this->attributes()->sync($attributeId);
+    }
+
+    public function getManagers()
+    {
+        return $this->users()->where('active', true)
+                             ->where('group_id', Group::HOTELMANAGER)
+                             ->get();
+    }
+
+    public function getStaff()
+    {
+        return $this->users()->where('active', true)
+            ->where('group_id', Group::HOTELANGESTELLTER)
+            ->get();
     }
 }

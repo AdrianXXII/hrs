@@ -46,4 +46,9 @@ class User extends Authenticatable
     public function inGroup(Group $group){
         return $this->group == $group;
     }
+
+    public function getHotels()
+    {
+        return $this->hotels()->where('active', true)->get();
+    }
 }

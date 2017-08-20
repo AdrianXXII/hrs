@@ -4,6 +4,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name("home");
 
+Route::get('/hotels', 'HotelsController@index')->name("hotels");
+
 Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'admin'], function(){
         Route::get('/users', 'UserController@index')->name('users.index');
@@ -24,10 +26,10 @@ Route::group(['middleware' => 'auth'], function() {
         // Hotels
         Route::get('/backend/hotels', 'AdminHotelsController@index')->name('backend.hotels.index');
         Route::get('/backend/hotels/new', 'AdminHotelsController@create')->name('backend.hotels.create');
+        Route::post('/backend/hotels', 'AdminHotelsController@store')->name('backend.hotels.save');
         Route::get('/backend/hotels/{hotel}/edit','AdminHotelsController@edit')->name('backend.hotels.edit');
         Route::put('/backend/hotels/{hotel}','AdminHotelsController@update')->name('backend.hotels.update');
         Route::delete('/backend/hotels/{hotel}','AdminHotelsController@destroy')->name('backend.hotels.delete');
-        Route::post('/backend/hotels', 'AdminHotelsController@store')->name('backend.hotels.save');
     });
 
     Route::group(['middleware' => 'manager'], function() {
