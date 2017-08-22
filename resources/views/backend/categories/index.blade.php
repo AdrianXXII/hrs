@@ -37,7 +37,7 @@
                                                     <a href="{{ route('backend.categories.edit', ['id' => $category->id]) }}" class="btn btn-primary">
                                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                                     </a>
-                                                    <form method="post" action="{{ route('backend.categories.delete', ['id' => $category->id]) }}">
+                                                    <form class="deleteBtn" method="post" action="{{ route('backend.categories.delete', ['id' => $category->id]) }}">
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         <button type="submit" class="btn btn-danger center-block deleteBtn">
