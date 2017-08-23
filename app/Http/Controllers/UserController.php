@@ -20,7 +20,7 @@ class UserController extends Controller
     {
         //
         $users = User::where('active',true)->get();
-        return view('users.index', compact('users'));
+        return view('backend.users.index', compact('users'));
     }
 
     /**
@@ -32,7 +32,7 @@ class UserController extends Controller
     {
         //
         $groups = Group::all();
-        return view('users.create', compact('groups'));
+        return view('backend.users.create', compact('groups'));
     }
 
     /**
@@ -79,12 +79,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        if($user->active == false)
+            return redirect(route('users.index'));
         $groups = Group::all();
-        $user = User::where('id',$id)->where('active',true)->first();
-        return view('users.edit',compact('user','groups'));
+        return view('backend.users.edit',compact('user','groups'));
     }
 
     /**
@@ -94,14 +94,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserPostRequest $request, $id)
+    public function update(UpdateUserPostRequest $request, User $user)
     {
+        if(!$user->active){
+            return redirect(route('users.index'));
+        }
         //get Group
         $groupId = $request->get('groupId');
         $group = Group::find($groupId);
 
         //Create new User
-        $user = User::find($id);
         $user->firstname = $request->get('firstname');
         $user->lastname = $request->get('lastname');
         $user->lastname = $request->get('email');
@@ -116,7 +118,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //Create new User
         $user = User::find($id);

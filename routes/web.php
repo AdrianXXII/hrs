@@ -12,20 +12,20 @@ Route::group(['middleware' => 'auth'], function() {
             return view('backend.index');
         })->name('backend.index');
 
-        Route::get('/users', 'UserController@index')->name('users.index');
-        Route::get('/users/new','UserController@create')->name('users.create');
-        Route::get('/users/{id}/edit','UserController@edit')->name('users.edit');
-        Route::put('/users/{id}','UserController@update')->name('users.update');
-        Route::delete('/users/{id}','UserController@destroy')->name('users.delete');
-        Route::post('/users','UserController@store')->name('users.save');
+        Route::get('/backend/users', 'UserController@index')->name('users.index');
+        Route::get('/backend/users/new','UserController@create')->name('users.create');
+        Route::get('/backend/users/{user}/edit','UserController@edit')->name('users.edit');
+        Route::put('/backend/users/{user}','UserController@update')->name('users.update');
+        Route::delete('/backend/users/{user}','UserController@destroy')->name('users.delete');
+        Route::post('/backend/users','UserController@store')->name('users.save');
 
         //Attributes
-        Route::get('/attributes', 'AttributeController@index')->name('attributes.index');
-        Route::get('/attributes/new','AttributeController@create')->name('attributes.create');
-        Route::get('/attributes/{id}/edit','AttributeController@edit')->name('attributes.edit');
-        Route::put('/attributes/{id}','AttributeController@update')->name('attributes.update');
-        Route::delete('/attributes/{id}','AttributeController@destroy')->name('attributes.delete');
-        Route::post('/attributes','AttributeController@store')->name('attributes.save');
+        Route::get('/backend/attributes', 'AttributeController@index')->name('attributes.index');
+        Route::get('/backend/attributes/new','AttributeController@create')->name('attributes.create');
+        Route::get('/backend/attributes/{id}/edit','AttributeController@edit')->name('attributes.edit');
+        Route::put('/backend/attributes/{id}','AttributeController@update')->name('attributes.update');
+        Route::delete('/backend/attributes/{id}','AttributeController@destroy')->name('attributes.delete');
+        Route::post('/backend/attributes','AttributeController@store')->name('attributes.save');
 
         // Hotels
         Route::get('/backend/hotels', 'AdminHotelsController@index')->name('backend.hotels.index');

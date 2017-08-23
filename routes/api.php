@@ -16,3 +16,9 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/api/v1/reviews', 'ReviewApiController@index');
+Route::put('/api/v1/reviews', 'ReviewApiController@store');
+Route::post('/api/v1/reviews', 'ReviewApiController@update');
+Route::delete('/api/v1/reviews', 'ReviewApiController@destroy');
