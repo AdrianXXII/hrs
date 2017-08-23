@@ -19,6 +19,17 @@ class ManageHotelsController extends Controller
         return view('manager.hotels.index', compact('hotels'));
     }
 
+    public function show(Hotel $hotel)
+    {
+        $user = \Auth::user();
+        if(! $hotel->isManagedBy($user))
+        {
+            return back();
+        }
+
+        dd($hotel);
+    }
+
     public function edit(Hotel $hotel)
     {
         $attributes = Attribute::getHotelAttributes();

@@ -73,4 +73,10 @@ class Hotel extends Model
             ->where('group_id', Group::HOTELANGESTELLTER)
             ->get();
     }
+
+    public function getRoomTypes()
+    {
+        return $this->roomtypes()->where('active', true)
+                                 ->get();
+    }
 }

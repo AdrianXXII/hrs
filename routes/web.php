@@ -45,9 +45,19 @@ Route::group(['middleware' => 'auth'], function() {
     });
 
     Route::group(['middleware' => 'manager'], function() {
+        // Hotels
         Route::get('/manager/hotels', 'ManageHotelsController@index')->name('manager.hotels.index');
+        Route::get('manager/hotels/{hotel}','ManageHotelsController@show')->name('manager.hotels.show');
         Route::get('manager/hotels/{hotel}/edit','ManageHotelsController@edit')->name('manager.hotels.edit');
         Route::put('manager/hotels/{hotel}','ManageHotelsController@update')->name('manager.hotels.update');
+
+        // RoomType
+        Route::get('/manager/hotel/{hotel}/roomtypes', 'ManagerRoomtypesController@index')->name('manager.roomtypes.index');
+        Route::get('/manager/hotel/{hotel}/roomtypes/new', 'ManagerRoomtypesController@create')->name('manager.roomtypes.create');
+        Route::post('/manager/hotel/{hotel}/roomtypes', 'ManagerRoomtypesController@store')->name('manager.roomtypes.save');
+        Route::get('/manager/hotel/{hotel}/roomtypes/{roomtype}/edit','ManagerRoomtypesController@edit')->name('manager.roomtypes.edit');
+        Route::put('/manager/hotel/{hotel}/roomtypes/{roomtype}','ManagerRoomtypesController@update')->name('manager.roomtypes.update');
+        Route::delete('/manager/hotel/{hotel}/roomtypes/{roomtype}','ManagerRoomtypesController@destroy')->name('manager.roomtypes.delete');
     });
 });
 
