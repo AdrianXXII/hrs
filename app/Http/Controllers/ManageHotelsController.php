@@ -27,7 +27,7 @@ class ManageHotelsController extends Controller
             return back();
         }
 
-        dd($hotel);
+        return view('manager.hotels.show', compact('hotel'));
     }
 
     public function edit(Hotel $hotel)

@@ -36,12 +36,12 @@ Route::group(['middleware' => 'auth'], function() {
         Route::delete('/backend/hotels/{hotel}','AdminHotelsController@destroy')->name('backend.hotels.delete');
 
         // Categories
-        Route::get('/backend/categories', 'AdminCategoriesController@index')->name('backend.categories.index');
-        Route::get('/backend/categories/new', 'AdminCategoriesController@create')->name('backend.categories.create');
-        Route::post('/backend/categories', 'AdminCategoriesController@store')->name('backend.categories.save');
-        Route::get('/backend/categories/{category}/edit','AdminCategoriesController@edit')->name('backend.categories.edit');
-        Route::put('/backend/categories/{category}','AdminCategoriesController@update')->name('backend.categories.update');
-        Route::delete('/backend/categories/{category}','AdminCategoriesController@destroy')->name('backend.categories.delete');
+        Route::get('/backend/categories', 'CategoriesController@index')->name('backend.categories.index');
+        Route::get('/backend/categories/new', 'CategoriesController@create')->name('backend.categories.create');
+        Route::post('/backend/categories', 'CategoriesController@store')->name('backend.categories.save');
+        Route::get('/backend/categories/{category}/edit','CategoriesController@edit')->name('backend.categories.edit');
+        Route::put('/backend/categories/{category}','CategoriesController@update')->name('backend.categories.update');
+        Route::delete('/backend/categories/{category}','CategoriesController@destroy')->name('backend.categories.delete');
     });
 
     Route::group(['middleware' => 'manager'], function() {
@@ -52,12 +52,18 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('manager/hotels/{hotel}','ManageHotelsController@update')->name('manager.hotels.update');
 
         // RoomType
-        Route::get('/manager/hotel/{hotel}/roomtypes', 'ManagerRoomtypesController@index')->name('manager.roomtypes.index');
-        Route::get('/manager/hotel/{hotel}/roomtypes/new', 'ManagerRoomtypesController@create')->name('manager.roomtypes.create');
-        Route::post('/manager/hotel/{hotel}/roomtypes', 'ManagerRoomtypesController@store')->name('manager.roomtypes.save');
-        Route::get('/manager/hotel/{hotel}/roomtypes/{roomtype}/edit','ManagerRoomtypesController@edit')->name('manager.roomtypes.edit');
-        Route::put('/manager/hotel/{hotel}/roomtypes/{roomtype}','ManagerRoomtypesController@update')->name('manager.roomtypes.update');
-        Route::delete('/manager/hotel/{hotel}/roomtypes/{roomtype}','ManagerRoomtypesController@destroy')->name('manager.roomtypes.delete');
+        Route::get('/manager/hotel/{hotel}/roomtypes', 'RoomtypesController@index')->name('manager.roomtypes.index');
+        Route::get('/manager/hotel/{hotel}/roomtypes/new', 'RoomtypesController@create')->name('manager.roomtypes.create');
+        Route::post('/manager/hotel/{hotel}/roomtypes', 'RoomtypesController@store')->name('manager.roomtypes.save');
+        Route::get('/manager/hotel/{hotel}/roomtypes/{roomtype}/edit','RoomtypesController@edit')->name('manager.roomtypes.edit');
+        Route::put('/manager/hotel/{hotel}/roomtypes/{roomtype}','RoomtypesController@update')->name('manager.roomtypes.update');
+        Route::delete('/manager/hotel/{hotel}/roomtypes/{roomtype}','RoomtypesController@destroy')->name('manager.roomtypes.delete');
+
+        // Zimmer
+
+        // Reservationen
+
+        // Hotelangestellte
     });
 });
 

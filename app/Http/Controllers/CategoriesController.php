@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\AdminStoreCategoryPostRequest as StoreCategoryPostRequest;
 
-class AdminCategoriesController extends Controller
+class CategoriesController extends Controller
 {
     public function index(Category $categories)
     {

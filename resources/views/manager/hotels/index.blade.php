@@ -16,10 +16,7 @@
                                         <tr>
                                             <th>Hotelname</th>
                                             <th>Adresse</th>
-                                            <th>Hotelangestellte</th>
-                                            <th>
-
-                                            </th>
+                                            <th>Aktionen</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -27,18 +24,22 @@
                                             <tr>
                                                 <td>{{ $hotel->name }}</td>
                                                 <td> {{ $hotel->street . ', ' . $hotel->area }}</td>
+
                                                 <td>
-                                                    <ul class="list-unstyled">
-                                                    @foreach ($hotel->getStaff() as $user)
-                                                        <li class="">{{ $user->name }}</li>
-                                                    @endforeach
-                                                    <ul>
-                                                </td>
-                                                <td>
-                                                    <a href="{{ route('manager.hotels.edit', ['id' => $hotel->id]) }}" class="btn btn-primary">
-                                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                                    <a href="#" class="btn btn-primary">
+                                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                                    </a>
+                                                    <a href="{{ route('manager.roomtypes.index', ['id' => $hotel->id]) }}" class="btn btn-default">
+                                                        Zimmertypen
+                                                    </a>
+                                                    <a href="#" class="btn btn-default">
+                                                        Zimmer
+                                                    </a>
+                                                    <a href="#" class="btn btn-default">
+                                                        Reservationen
                                                     </a>
                                                 </td>
+
                                             </tr>
                                         @endforeach
                                     </tbody>

@@ -8354,3 +8354,11 @@ button.close {
   display: inline-block;
 }
 
+.background-hotelroom {
+  position: fixed;
+  top: -100;
+  left: 0;
+  min-width: 100%;
+  z-index: -1;
+}
+

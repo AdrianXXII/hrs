@@ -85,7 +85,7 @@ class HotelTableSeeder extends Seeder
             array('name' => 'Villa Hotel',
                   'description' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
                   'stars' => 3,
-                  'street' => '',
+                  'street' => 'Bergweg 12',
                   'postalcode' => '7278',
                   'area' => 'Davos',
                   'telephone' => '0123456789',

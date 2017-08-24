@@ -6,7 +6,9 @@ class Roomtype extends Model
 {
     use InactivateTrait;
 
-    public function hotels()
+    public $timestamps = false;
+
+    public function hotel()
     {
         return $this->belongsTo('App\Hotel');
     }

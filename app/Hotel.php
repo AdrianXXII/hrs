@@ -28,8 +28,12 @@ class Hotel extends Model
         return $this->hasMany('App\Roomtype');
     }
 
-    public function isManagedBy(User $user)
+    public function isManagedBy(User $user = null)
     {
+        if($user == null)
+        {
+            return false;
+        }
         return count($this->users->where('id', $user->id));
     }
 
