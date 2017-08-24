@@ -20,7 +20,7 @@ class CreateGroupsTable extends Migration
 
         Schema::table('users', function (Blueprint $table) {
             $table->integer('group_id',false,true)->length(10);
-            $table->foreign('group_id')->references('id')->on('users');
+            $table->foreign('group_id')->references('id')->on('groups');
         });
     }
 
