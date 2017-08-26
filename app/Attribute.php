@@ -4,7 +4,7 @@ namespace App;
 
 class Attribute extends Model
 {
-    use InactivateTrait;
+    use DeactivateTrait;
 
     // Timestamp ausstellen
     public $timestamps = false;
@@ -17,7 +17,7 @@ class Attribute extends Model
      * Deactivate Attribute
      * @return bool
      */
-    public function inactivate(){
+    public function deactivate(){
         $this->active = false;
         return $this->save();
     }

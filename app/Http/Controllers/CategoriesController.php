@@ -10,7 +10,6 @@ class CategoriesController extends Controller
     public function index(Category $categories)
     {
         $categories = $categories->all()->where('active', true);
-
         return view('backend.categories.index', compact('categories'));
     }
 
@@ -50,7 +49,7 @@ class CategoriesController extends Controller
 
     public function destroy(Category $category)
     {
-        $category->inactivate();
+        $category->deactivate();
 
         return back();
     }

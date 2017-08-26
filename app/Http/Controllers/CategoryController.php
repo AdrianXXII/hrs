@@ -105,7 +105,7 @@ class CategoryController extends Controller
         if(!$category->active){
             return redirect(route('categories.index'));
         }
-        $category->inactivate();
+        $category->deactivate();
         return redirect(route('categories.index'));
     }
 }

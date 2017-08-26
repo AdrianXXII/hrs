@@ -5,7 +5,10 @@
                 <a href="{{ route('manager.hotels.index') }}">Meine Hotels</a>
             </li>
             <li>
-                <a href="#">Reservationen</a>
+                <a href="{{ route('manager.users.index') }}">Meine Benutzer</a>
+            </li>
+            <li>
+                <a href="{{ route('manager.reservations.index') }}">Reservationen</a>
             </li>
         </ul>
     </div>

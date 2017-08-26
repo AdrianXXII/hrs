@@ -4,7 +4,7 @@ namespace App;
 
 class Review extends Model
 {
-    use InactivateTrait;
+    use DeactivateTrait;
     //
 
     public function hotel(){
