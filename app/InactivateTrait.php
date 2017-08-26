@@ -11,4 +11,12 @@ trait InactivateTrait
 
         return true;
     }
+
+    public function isInactive()
+    {
+        if (! $this->active)
+        {
+            return true;
+        }
+    }
 }
