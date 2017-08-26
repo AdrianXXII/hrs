@@ -2,9 +2,9 @@
 
 namespace App;
 
-trait InactivateTrait
+trait DeactivateTrait
 {
-    public function inactivate()
+    public function deactivate()
     {
         $this->active = 0;
         $this->update();

@@ -121,7 +121,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //Create new User
-        $user = User::find($id);
         $user->active = false;
         $user->save();
 

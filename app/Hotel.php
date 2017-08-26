@@ -4,7 +4,7 @@ namespace App;
 
 class Hotel extends Model
 {
-    use InactivateTrait;
+    use DeactivateTrait;
 
     public $timestamps = false;
 

@@ -72,7 +72,7 @@ class AdminHotelsController extends Controller
 
     public function destroy(Hotel $hotel)
     {
-        $hotel->inactivate();
+        $hotel->deactivate();
 
         return back();
     }

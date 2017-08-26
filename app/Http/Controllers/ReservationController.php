@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Reservation;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -14,6 +15,8 @@ class ReservationController extends Controller
     public function index()
     {
         //
+        $reservations = Reservation::where('active',true)->get();
+        return $reservations;
     }
 
     /**
@@ -35,17 +38,7 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
         //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect(route('manager.reservations.index'));
     }
 
     /**
@@ -66,9 +59,13 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Reservation $reservation)
     {
         //
+        if($reservation->active == false){
+            return redirect(route('manager.reservations.index'));
+        }
+        return redirect(route('manager.reservations.index'));
     }
 
     /**
@@ -77,8 +74,10 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Reservation $reservation)
     {
         //
+        $reservation->deactivate();
+        return redirect(route('manager.reservations.index'));
     }
 }

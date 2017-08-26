@@ -4,7 +4,7 @@ namespace App;
 
 class Room extends Model
 {
-    use InactivateTrait;
+    use DeactivateTrait;
 
     public function roomtype()
     {

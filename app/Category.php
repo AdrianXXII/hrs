@@ -4,7 +4,7 @@ namespace App;
 
 class Category extends Model
 {
-    use InactivateTrait;
+    use DeactivateTrait;
 
     public $timestamps = false;
 

@@ -59,9 +59,25 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('/manager/hotel/{hotel}/roomtypes/{roomtype}','RoomtypesController@update')->name('manager.roomtypes.update');
         Route::delete('/manager/hotel/{hotel}/roomtypes/{roomtype}','RoomtypesController@destroy')->name('manager.roomtypes.delete');
 
+        //User
+        Route::get('/manager/users', 'UserManagerController@index')->name('manager.users.index');
+        Route::get('/manager/users/new','UserManagerController@create')->name('manager.users.create');
+        Route::get('/manager/users/{user}/edit','UserManagerController@edit')->name('manager.users.edit');
+        Route::put('/manager/users/{user}','UserManagerController@update')->name('manager.users.update');
+        Route::delete('/manager/users/{user}','UserManagerController@destroy')->name('manager.users.delete');
+        Route::post('/manager/users','UserManagerController@store')->name('manager.users.save');
+
+
         // Zimmer
 
         // Reservationen
+        Route::get('/manager/reservations', 'ReservationController@index')->name('manager.reservations.index');
+        Route::get('/manager/reservations/new','ReservationController@create')->name('manager.reservations.create');
+        Route::get('/manager/reservations/{reservation}/edit','ReservationController@edit')->name('manager.reservations.edit');
+        Route::put('/manager/reservations/{reservation}','ReservationController@update')->name('manager.reservations.update');
+        Route::delete('/manager/reservations/{reservation}','ReservationController@destroy')->name('manager.reservations.delete');
+        Route::post('/manager/reservations','ReservationController@store')->name('manager.reservations.save');
+
 
         // Hotelangestellte
     });
