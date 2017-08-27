@@ -32,4 +32,15 @@ class Roomtype extends Model
     {
         return $this->belongsTo('App\Category');
     }
+
+    public function getData()
+    {
+        return $this->title . ' (' . $this->category->number_of_beds . ' Bettzimmer, ' . $this->price . ' CHF)';
+    }
+
+    public function getRooms()
+    {
+        return $this->rooms()->where('active', true)
+            ->get();
+    }
 }

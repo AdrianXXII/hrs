@@ -59,6 +59,14 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('/manager/hotel/{hotel}/roomtypes/{roomtype}','RoomtypesController@update')->name('manager.roomtypes.update');
         Route::delete('/manager/hotel/{hotel}/roomtypes/{roomtype}','RoomtypesController@destroy')->name('manager.roomtypes.delete');
 
+        // Room
+        Route::get('/manager/hotel/{hotel}/rooms', 'RoomsController@index')->name('manager.rooms.index');
+        Route::get('/manager/hotel/{hotel}/rooms/new', 'RoomsController@create')->name('manager.rooms.create');
+        Route::post('/manager/hotel/{hotel}/rooms', 'RoomsController@store')->name('manager.rooms.save');
+        Route::get('/manager/hotel/{hotel}/rooms/{room}/edit','RoomsController@edit')->name('manager.rooms.edit');
+        Route::put('/manager/hotel/{hotel}/rooms/{room}','RoomsController@update')->name('manager.rooms.update');
+        Route::delete('/manager/hotel/{hotel}/rooms/{room}','RoomsController@destroy')->name('manager.rooms.delete');
+
         //User
         Route::get('/manager/users', 'UserManagerController@index')->name('manager.users.index');
         Route::get('/manager/users/new','UserManagerController@create')->name('manager.users.create');
@@ -66,9 +74,6 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('/manager/users/{user}','UserManagerController@update')->name('manager.users.update');
         Route::delete('/manager/users/{user}','UserManagerController@destroy')->name('manager.users.delete');
         Route::post('/manager/users','UserManagerController@store')->name('manager.users.save');
-
-
-        // Zimmer
 
         // Reservationen
         Route::get('/manager/reservations', 'ReservationController@index')->name('manager.reservations.index');

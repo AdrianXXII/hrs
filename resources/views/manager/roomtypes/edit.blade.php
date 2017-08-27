@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3>{{ $hotel->name }}<h3>
-                        <h4>Zimmertyp erstellen</h4>
+                        <h4>Zimmertyp bearbeit</h4>
                     </div>
                     <div class="panel-body">
                         <div class="row">

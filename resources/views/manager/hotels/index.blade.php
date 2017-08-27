@@ -32,7 +32,7 @@
                                                     <a href="{{ route('manager.roomtypes.index', ['id' => $hotel->id]) }}" class="btn btn-default">
                                                         Zimmertypen
                                                     </a>
-                                                    <a href="#" class="btn btn-default">
+                                                    <a href="{{ route('manager.rooms.index', ['id' => $hotel->id]) }}" class="btn btn-default">
                                                         Zimmer
                                                     </a>
                                                     <a href="#" class="btn btn-default">

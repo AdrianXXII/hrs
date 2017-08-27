@@ -83,4 +83,22 @@ class Hotel extends Model
         return $this->roomtypes()->where('active', true)
                                  ->get();
     }
+
+    public function getRooms()
+    {
+        $mergedRooms = null;
+
+        foreach($this->getRoomTypes() as $roomtype)
+        {
+            if($mergedRooms == null) {
+                $mergedRooms = $roomtype->getRooms();
+
+                continue;
+            }
+
+            $mergedRooms = $roomtype->getRooms()->merge($mergedRooms);
+        }
+
+        return $mergedRooms->sortBy('room_number');
+    }
 }
