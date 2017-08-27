@@ -99,6 +99,10 @@ class Hotel extends Model
             $mergedRooms = $roomtype->getRooms()->merge($mergedRooms);
         }
 
+        if($mergedRooms === null) {
+            return null;
+        }
+
         return $mergedRooms->sortBy('room_number');
     }
 }

@@ -12,4 +12,14 @@ class HotelsController extends Controller
 
         return view('hotels', compact('hotels'));
     }
+
+    public function show(Hotel $hotel)
+    {
+        if($hotel->isInactive())
+        {
+            return back();
+        }
+
+        return view('rooms', compact('hotel'));
+    }
 }

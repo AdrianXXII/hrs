@@ -58,20 +58,4 @@
             </div>
         </div>
     </div>
-    <script>
-        function filterPossibleCategories(val) {
-            var list = document.getElementById("category");
-
-            for(var i = 0; i < list.length; i++) {
-                var matchstring = val.concat(' Zimmer');
-                if (list.options[i].text.match(matchstring)) {
-                    $(list.options[i]).show();
-                } else {
-                    $(list.options[i]).hide();
-                }
-            }
-
-            list.selectedIndex = -1;
-        }
-    </script>
 @endsection

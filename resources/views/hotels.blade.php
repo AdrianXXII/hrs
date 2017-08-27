@@ -12,7 +12,7 @@
                 <br>
                 <img alt="hotelsample" class="img-thumbnail" src="/img/hotelsample.jpg" data-holder-rendered="true">
                 <p>{{ $hotel->description }}</p>
-                <p><a class="btn btn-primary" href="#" role="button">Zum Hotel »</a></p>
+                <p><a class="btn btn-primary" href="{{ route('hotels.show', ['hotel' => $hotel->id]) }}" role="button">Zum Hotel »</a></p>
             </div>
         @endforeach
     </div>
