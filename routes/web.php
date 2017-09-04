@@ -89,5 +89,11 @@ Route::group(['middleware' => 'auth'], function() {
     });
 });
 
+// Beispiel
+Route::get('/pdf', function() {
+    $pdf = PDF::loadView('newsletter.sample');
+    return $pdf->setPaper('a5')->download('newsletter.pdf');
+});
+
 Auth::routes();
 
