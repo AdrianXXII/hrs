@@ -1,0 +1,160 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Hotel
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-10">
+                                <h2>{{ $hotel->name }}</h2>
+                                @for ($i = 0; $i < $hotel->stars; $i++)
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                @endfor
+                                <br>
+                                <img alt="hotelsample" class="img-thumbnail" src="/img/hotelsample.jpg" data-holder-rendered="true">
+                                <p>{{ $hotel->description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Reservation Editieren
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-10">
+                                <form action="{{ route('manager.reservations.update', ['id' => $reservation->id]) }}" class="form-horizontal" method="POST">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="_method" value="PUT">
+
+                                    <div class="form-group{{ $errors->has('roomtypeId') ? ' has-error' : '' }}">
+                                        <label for="roomtypeId" class="col-md-4 control-label">Zimmerart</label>
+                                        <div class="col-md-6">
+                                            <select name="roomtypeId" id="roomtypeId">
+                                                @foreach($hotel->roomtypes as $roomtype)
+                                                    @if($roomtype->id == old('roomtypeId'))
+                                                        <option value="{{ $roomtype->id }}" selected="selected">{{ $roomtype->title }}</option>
+                                                    @else
+                                                        <option value="{{ $roomtype->id }}">{{ $roomtype->title }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                        <label for="name" class="col-md-4 control-label">Kundenname</label>
+                                        <div class="col-md-6">
+                                            <input type="text" name="name" id="name" value="{{ old('name') }}">
+                                        </div>
+                                        @if ($errors->has('name'))
+                                            <span class="help-block">
+                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                </span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
+                                        <label for="firstname" class="col-md-4 control-label">Vorname</label>
+                                        <div class="col-md-6">
+                                            <input type="text" name="firstname" id="firstname" value="{{ old('firstname') }}">
+                                        </div>
+                                        @if ($errors->has('firstname'))
+                                            <span class="help-block">
+                                                    <strong>{{ $errors->first('firstname') }}</strong>
+                                                </span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                        <label for="firstname" class="col-md-4 control-label">email</label>
+                                        <div class="col-md-6">
+                                            <input type="text" name="email" id="email" value="{{ old('email') }}">
+                                        </div>
+                                        @if ($errors->has('email'))
+                                            <span class="help-block">
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                </span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group{{ $errors->has('startDatum') ? ' has-error' : '' }}">
+                                        <label for="startDatum" class="col-md-4 control-label">Start</label>
+                                        <div class="col-md-6">
+                                            <input id="startDatum" type="text" class="form-control" name="startDatum" value="{{ old('startDatum') }}">
+                                        </div>
+                                        @if ($errors->has('startDatum'))
+                                            <span class="help-block">
+                                                    <strong>{{ $errors->first('startDatum') }}</strong>
+                                                </span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group{{ $errors->has('endDatum') ? ' has-error' : '' }}">
+                                        <label for="endDatum" class="col-md-4 control-label">End</label>
+                                        <div class="col-md-6">
+                                            <input id="endDatum" type="text" class="form-control" name="endDatum" value="{{ old('endDatum') }}">
+                                        </div>
+                                        @if ($errors->has('endDatum'))
+                                            <span class="help-block">
+                                                    <strong>{{ $errors->first('endDatum') }}</strong>
+                                                </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
+                                        <label for="price" class="col-md-4 control-label">Price</label>
+                                        <div class="col-md-6">
+                                            <input type="text" name="price" id="price" value="{{ old('price') }}">
+
+                                        </div>
+                                        @if ($errors->has('price'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('price') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group{{ $errors->has('roomId') ? ' has-error' : '' }}">
+                                        <label for="roomId" class="col-md-4 control-label">Room</label>
+                                        <div class="col-md-6">
+                                            <select name="roomId" id="roomId" class="form-control">
+                                                @foreach($rooms as $room)
+                                                    @if($room->id == old('roomId'))
+                                                        <option value="{{ $room->id }}" selected="selected">{{ $room->room_number }}</option>
+                                                    @else
+                                                        <option value="{{ $room->id }}">{{ $room->room_number }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+
+                                            @if ($errors->has('roomId'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('roomId') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-md-offset-4">
+                                            <button type="submit" class="btn btn-primary">
+                                                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Speichern
+                                            </button>
+                                            <a href="{{ back() }}" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Abbrechen
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

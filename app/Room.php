@@ -15,6 +15,13 @@ class Room extends Model
 
     public function reservations()
     {
-        return $this->belongsToMany('App\Reservation');
+        return $this->hasMany('App\Reservation');
+    }
+
+    public static function getAvailbleRooms($startDate,$endDate,$roomtype)
+    {
+        return self::where('active',true)->where('roomtype_id', $roomtype->id)->whereDoesntHave('reservations', function($q) use ($startDate,$endDate) {
+            $q->where('reservation_start','>=',$startDate)->where('reservation_end','<=',$endDate);
+        })->get();
     }
 }
