@@ -25,7 +25,7 @@ class ReviewApiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Hotel $hotel)
+    public function store(StoreReviewPost $request, Hotel $hotel)
     {
         //
         if($hotel->active == false)

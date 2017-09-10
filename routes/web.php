@@ -6,6 +6,7 @@ Route::get('/', function () {
 
 Route::get('/hotels', 'HotelsController@index')->name("hotels.index");
 Route::get('/hotels/{hotel}', 'HotelsController@show')->name("hotels.show");
+Route::post('/hotels/{hotel}/review', 'ReviewController@store')->name('review.save');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'admin'], function(){
@@ -59,7 +60,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('/manager/hotel/{hotel}/roomtypes/{roomtype}','RoomtypesController@update')->name('manager.roomtypes.update');
         Route::delete('/manager/hotel/{hotel}/roomtypes/{roomtype}','RoomtypesController@destroy')->name('manager.roomtypes.delete');
 
-        // Room
+        // Room - Hotelangestellte
         Route::get('/manager/hotel/{hotel}/rooms', 'RoomsController@index')->name('manager.rooms.index');
         Route::get('/manager/hotel/{hotel}/rooms/new', 'RoomsController@create')->name('manager.rooms.create');
         Route::post('/manager/hotel/{hotel}/rooms', 'RoomsController@store')->name('manager.rooms.save');
@@ -83,6 +84,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::delete('/manager/reservations/{reservation}','ReservationController@destroy')->name('manager.reservations.delete');
         Route::post('/manager/reservations','ReservationController@store')->name('manager.reservations.save');
 
+        // Reviews
+        Route::get('/manager/hotel/{hotel}/reviews', 'ManagerReviewController@index')->name('manager.reviews.index');
+        Route::delete('/manager/hotel/{hotel}/reviews/{review}', 'ManagerReviewController@destroy')->name('manager.reviews.delete');
 
         // Hotelangestellte
     });
