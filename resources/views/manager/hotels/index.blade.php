@@ -35,8 +35,8 @@
                                                     <a href="{{ route('manager.rooms.index', ['id' => $hotel->id]) }}" class="btn btn-default">
                                                         Zimmer
                                                     </a>
-                                                    <a href="#" class="btn btn-default">
-                                                        Reservationen
+                                                    <a href="{{ route('manager.reviews.index', ['id' => $hotel->id]) }}" class="btn btn-default">
+                                                        Reviews
                                                     </a>
                                                 </td>
 
