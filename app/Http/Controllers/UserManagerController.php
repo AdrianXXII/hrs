@@ -21,9 +21,19 @@ class UserManagerController extends Controller
     public function index()
     {
         $hotels = Auth::user()->hotels;
-        $users = User::where('active',true)->whereHas('hotels', function($q) use ($hotels) {
-            $q->whereIn('id', $hotels);
-        })->get();
+        $users = null;
+
+        foreach($hotels as $hotel)
+        {
+            if($users == null) {
+                $users = $hotel->getStaff();
+
+                continue;
+            }
+
+            $users = $hotel->getStaff()->merge($users);
+        }
+
         return view('manager.users.index', compact('users'));
     }
 

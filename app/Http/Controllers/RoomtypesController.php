@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Hotel;
 use App\Roomtype;
 use App\Category;
+use App\Attribute;
 use App\Http\Requests\StoreRoomtypePostRequest;
 
 class RoomtypesController extends Controller
@@ -20,8 +21,9 @@ class RoomtypesController extends Controller
     {
         $numberOfBeds = Category::numberOfBeds();
         $categories = Category::all()->where('active', 1)->sortBy('number_of_beds');
+        $attributes = Attribute::getRoomAttributes();
 
-        return view('manager.roomtypes.create', compact('hotel', 'categories', 'numberOfBeds'));
+        return view('manager.roomtypes.create', compact('hotel', 'categories', 'numberOfBeds', 'attributes'));
     }
 
     public function edit($hotelid, $roomtypeid)
@@ -31,13 +33,14 @@ class RoomtypesController extends Controller
         $roomtype = Roomtype::find($roomtypeid);
         $numberOfBeds = Category::numberOfBeds();
         $categories = Category::all()->where('active', 1)->sortBy('number_of_beds');
+        $attributes = Attribute::getRoomAttributes();
 
         if(! $hotel->isManagedBy($user) OR $roomtype->isInactive())
         {
             return back();
         }
 
-        return view('manager.roomtypes.edit', compact('hotel', 'roomtype', 'numberOfBeds', 'categories'));
+        return view('manager.roomtypes.edit', compact('hotel', 'roomtype', 'numberOfBeds', 'categories', 'attributes'));
     }
 
     public function update(StoreRoomtypePostRequest $request, Hotel $hotel, Roomtype $roomtype)
@@ -53,6 +56,7 @@ class RoomtypesController extends Controller
         $roomtype->description = $request->get('description');
         $roomtype->price = $request->get('price');
         $roomtype->category()->associate($category);
+        $roomtype->syncAttributes(request()->get('attributes'));
 
         $roomtype->save();
 
@@ -78,6 +82,7 @@ class RoomtypesController extends Controller
         $roomtype->hotel()->associate($hotel);
         $roomtype->category()->associate($category);
         $roomtype->save();
+        $roomtype->syncAttributes(request()->get('attributes'));
 
         return redirect(route('manager.roomtypes.index', ['hotel' => $hotel->id]));
     }
@@ -92,7 +97,7 @@ class RoomtypesController extends Controller
             return back();
         }
 
-        $roomtype->inactivate();
+        $roomtype->deactivate();
 
         return back();
     }
