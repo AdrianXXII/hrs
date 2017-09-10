@@ -77,7 +77,7 @@ Route::group(['middleware' => 'auth'], function() {
 
         // Reservationen
         Route::get('/manager/reservations', 'ReservationController@index')->name('manager.reservations.index');
-        Route::get('/manager/reservations/new','ReservationController@create')->name('manager.reservations.create');
+        Route::get('/manager/reservations/new/{roomtype}','ReservationController@create')->name('manager.reservations.create');
         Route::get('/manager/reservations/{reservation}/edit','ReservationController@edit')->name('manager.reservations.edit');
         Route::put('/manager/reservations/{reservation}','ReservationController@update')->name('manager.reservations.update');
         Route::delete('/manager/reservations/{reservation}','ReservationController@destroy')->name('manager.reservations.delete');

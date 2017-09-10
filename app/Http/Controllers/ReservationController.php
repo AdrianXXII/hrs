@@ -19,6 +19,7 @@ class ReservationController extends Controller
     public function index()
     {
         //
+        $hotels = Auth::user()->hotels;
         $reservations = Reservation::where('active',true)->whereHas('roomtype',function($q){
             $q->whereHas('hotel', function($q1){
                 $q1->whereHas('users', function($q2){
@@ -26,7 +27,7 @@ class ReservationController extends Controller
                 });
             });
         })->get();
-        return view('backend.reservations.index', compact('reservations'));
+        return view('backend.reservations.index', compact('reservations','hotels'));
     }
 
     /**
@@ -34,7 +35,7 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Roomtype $roomtype)
     {
         //
     }

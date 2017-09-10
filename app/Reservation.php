@@ -11,6 +11,8 @@ class Reservation extends Model
     const STATUS_REJECTED = 2;
     const STATUS_CANCELLED = 3;
 
+    public $timestamps = false;
+
     public function roomtype(){
         return $this->belongsTo('App\Roomtype');
     }
