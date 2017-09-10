@@ -94,5 +94,12 @@ Route::get('/pdf', function() {
     return $pdf->setPaper('a5')->download('newsletter.pdf');
 });
 
+Route::get('/mail', function() {
+    Mail::raw('test', function($message) {
+        $message->from('postmaster@sandbox3c09cddbcf804658b5a53167417f708a.mailgun.org');
+        $message->to('arber.osmani.ao@gmail.com');
+    });
+});
+
 Auth::routes();
 

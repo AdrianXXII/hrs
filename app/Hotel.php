@@ -18,6 +18,11 @@ class Hotel extends Model
         return $this->hasMany('App\Review');
     }
 
+    public function newsletters()
+    {
+        return $this->hasMany('App\Newsletter');
+    }
+
     public function attributes()
     {
         return $this->belongsToMany('App\Attribute', 'attribute_hotel');
