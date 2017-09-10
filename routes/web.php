@@ -48,7 +48,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'manager'], function() {
         // Hotels
         Route::get('/manager/hotels', 'ManageHotelsController@index')->name('manager.hotels.index');
-        Route::get('manager/hotels/{hotel}','ManageHotelsController@show')->name('manager.hotels.show');
         Route::get('manager/hotels/{hotel}/edit','ManageHotelsController@edit')->name('manager.hotels.edit');
         Route::put('manager/hotels/{hotel}','ManageHotelsController@update')->name('manager.hotels.update');
 
