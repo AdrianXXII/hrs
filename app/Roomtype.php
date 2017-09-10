@@ -53,4 +53,14 @@ class Roomtype extends Model
     {
         $this->attributes()->sync($attributeId);
     }
+
+    public static function searchByDates($fromDate, $toDate)
+    {
+        return [];
+    }
+
+    public static function searchByCategoryAndDates($category, $fromDate, $toDate)
+    {
+        return [];
+    }
 }
