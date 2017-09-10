@@ -80,6 +80,19 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group{{ $errors->has('attributes') ? ' has-error' : '' }}">
+                                        <label for="managers" class="col-md-4 control-label">Zimmeratrribute</label>
+                                        <div class="col-md-6">
+                                            <select size="11" name="attributes[]"  class="form-control" id="managers" multiple>
+                                                @foreach ($attributes as $attribute)
+                                                    <option value="{{ $attribute->id }}">
+                                                        {{ $attribute->description }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <div class="col-md-6 col-md-offset-4">
                                             <button type="submit" class="btn btn-primary">

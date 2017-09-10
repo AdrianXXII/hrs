@@ -26,7 +26,7 @@
                                                 <td> {{ $hotel->street . ', ' . $hotel->area }}</td>
 
                                                 <td>
-                                                    <a href="#" class="btn btn-primary">
+                                                    <a href="{{ route('manager.hotels.edit', ['id' => $hotel->id]) }}" class="btn btn-primary">
                                                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                                     </a>
                                                     <a href="{{ route('manager.roomtypes.index', ['id' => $hotel->id]) }}" class="btn btn-default">
