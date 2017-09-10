@@ -27,7 +27,7 @@ class ReservationController extends Controller
                 });
             });
         })->get();
-        return view('backend.reservations.index', compact('reservations','hotels'));
+        return view('manager.reservations.index', compact('reservations','hotels'));
     }
 
     /**
@@ -35,9 +35,19 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Roomtype $roomtype)
+    public function create(Request $request)
     {
         //
+        if($request->get('endDatum') == null || $request->get('startDatum') == null || $request->get('roomtype') == null)
+
+            return "one is null :  - " . $request->get('endDatum') . " - " . $request->get('startDatum') . " - " . $request->get('roomtype');
+
+        $endDatum = new Carbon($request->get('endDatum'));
+        $startDatum = new Carbon($request->get('startDatum'));
+        $roomtype = Roomtype::find($request->get('roomtype'));
+        $rooms = Reservation::getAvailableRooms($startDatum, $endDatum, $roomtype);
+
+        return view('manager.reservations.create', compact('roomtype','startDatum','endDatum','rooms'));
     }
 
     /**
@@ -83,7 +93,7 @@ class ReservationController extends Controller
         $rooms = Reservation::getAvailableRooms($reservation->reservation_start, $reservation->reservation_end, $reservation->roomtype);
         $rooms->push($reservation->room);
         $hotel = $reservation->roomtype->hotel;
-        return view('backend.reservations.edit', compact('hotel','rooms','reservation'));
+        return view('manager.reservations.edit', compact('hotel','rooms','reservation'));
     }
 
     /**
