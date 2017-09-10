@@ -12,8 +12,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-block text-nowrap">
-                        <h2>NEWSLETTER</h2>
-
+                        <h2>Hallo {{ $person->firstname . ' ' . $person->name }}</h2>
+                        <h3>{{ $subject }}</h3>
+                        <p> {{ $body }}</p>
                         <hr>
                         <img alt="star" src="data:image/png;base64,
                             <?php echo base64_encode(file_get_contents("../public/img/newslettersample.png")) ?>

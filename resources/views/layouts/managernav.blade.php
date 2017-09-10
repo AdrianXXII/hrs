@@ -11,7 +11,7 @@
                 <a href="{{ route('manager.reservations.index') }}">Reservationen</a>
             </li>
             <li>
-                <a href="#">Newsletter erstellen</a>
+                <a href="{{ route('manager.newsletter.create') }}">Newsletter erstellen</a>
             </li>
         </ul>
     </div>

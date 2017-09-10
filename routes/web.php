@@ -1,7 +1,7 @@
 <?php
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('hotels.index');
 })->name("home");
 
 Route::get('/hotels', 'HotelsController@index')->name("hotels.index");
@@ -84,20 +84,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/manager/reservations','ReservationController@store')->name('manager.reservations.save');
 
 
-        // Hotelangestellte
-    });
-});
-
-// Beispiel
-Route::get('/pdf', function() {
-    $pdf = PDF::loadView('newsletter.sample');
-    return $pdf->setPaper('a5')->download('newsletter.pdf');
-});
-
-Route::get('/mail', function() {
-    Mail::raw('test', function($message) {
-        $message->from('postmaster@sandbox3c09cddbcf804658b5a53167417f708a.mailgun.org');
-        $message->to('arber.osmani.ao@gmail.com');
+        // Newsletter
+        Route::get('/manger/newsletter', 'NewsletterController@create')->name('manager.newsletter.create');
+        Route::post('/manger/newsletter', 'NewsletterController@send')->name('manager.newsletter.send');
     });
 });
 
