@@ -20,19 +20,7 @@ class UserManagerController extends Controller
      */
     public function index()
     {
-        $hotels = Auth::user()->hotels;
-        $users = null;
-
-        foreach($hotels as $hotel)
-        {
-            if($users == null) {
-                $users = $hotel->getStaff();
-
-                continue;
-            }
-
-            $users = $hotel->getStaff()->merge($users);
-        }
+        $users = Auth::user()->getStaff();
 
         return view('manager.users.index', compact('users'));
     }
@@ -57,12 +45,17 @@ class UserManagerController extends Controller
      */
     public function store(ManagerStoreUserRequest $request)
     {
+        $allowed = true;
         //get Group
         $group = Group::find(Group::HOTELANGESTELLTER);
 
         //get Hotel
         $hotel = Hotel::where('id',$request->get('hotel_id'))
             ->where('active',true)->get();
+
+        if(Auth::user()->hotels()->contains($hotel)){
+            return redirect(route('manager.users.index'));
+        }
 
         //Create new User
         $user = new User();
@@ -86,7 +79,8 @@ class UserManagerController extends Controller
      */
     public function edit(User $user)
     {
-        if($user->active == false)
+        $staff = Auth::user()->getStaff();
+        if($user->active == false || $staff == null || !$staff->contains($user))
             return redirect(route('manager.users.index'));
 
         $hotels = Auth::user()->hotels()->where('active',true)->get();
@@ -102,8 +96,10 @@ class UserManagerController extends Controller
      */
     public function update(ManagerUpdateHotelPostRequest $request, User $user)
     {
-        if($user->active == false)
+        $staff = Auth::user()->getStaff();
+        if($user->active == false || $staff == null || !$staff->contains($user))
             return redirect(route('manager.users.index'));
+
 
         //get Hotel
         $hotel = Hotel::where('id',$request->get('hotel_id'))
