@@ -54,6 +54,32 @@ class User extends Authenticatable
         return $this->hotels()->where('active', true)->get();
     }
 
+    public function getRooms()
+    {
+        $mergedRooms = null;
+
+        foreach($this->getHotels() as $hotel)
+        {
+            if($hotel->getRooms() === null)
+            {
+                continue;
+            }
+            
+            if($mergedRooms == null) {
+                $mergedRooms = $hotel->getRooms();
+
+                continue;
+            }
+            $mergedRooms = $hotel->getRooms()->merge($mergedRooms);
+        }
+
+        if($mergedRooms === null) {
+            return null;
+        }
+
+        return $mergedRooms->sortBy('room_number');
+    }
+
     public function getStaff()
     {
         $staff = null;

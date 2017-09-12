@@ -13,6 +13,9 @@
             <li>
                 <a href="{{ route('manager.newsletter.create') }}">Newsletter erstellen</a>
             </li>
+            <li>
+                <a href="{{ route('manager.statistic.index') }}">Statistik</a>
+            </li>
         </ul>
     </div>
 </nav>

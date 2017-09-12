@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\NewsletterPostRequest;
 use App\PDFGenerator;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use App\Http\Requests\NewsletterPostRequest;
 
 class NewsletterController extends Controller
 {
@@ -28,22 +29,25 @@ class NewsletterController extends Controller
         foreach ($recipients as $person)
         {
             $attachmentPath = PDFGenerator::generatePDFPath('newsletter', compact('person', 'subject', 'body'));
+            try {
                 \Mail::send('newsletter.main', compact('person', 'subject', 'body'), function($message) use ($person, $subject, $attachmentPath) {
-                    $message->from(env('MAIL_USERNAME'));
-                    $message->to($person->email);
-                    $message->subject($subject);
-                    $message->attach($attachmentPath);
-                });
+                        $message->from(env('MAIL_USERNAME'));
+                        $message->to($person->email);
+                        $message->subject($subject);
+                        $message->attach($attachmentPath);
+                    });
+                 $success = true;
+            } catch (\Swift_TransportException $e) {
+                $success = false;
+            }
         }
-
-        $success = true;
         return view('manager.newsletter.create', compact('recipients', 'success'));
     }
 
     protected function getRecipients()
     {
         $user = \Auth::user();
-        $hotels = $user->hotels;
+        $hotels = $user->hotels->where('active', true);
 
         $recipients = null;
 

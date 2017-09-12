@@ -91,6 +91,9 @@ Route::group(['middleware' => 'auth'], function() {
         // Newsletter
         Route::get('/manger/newsletter', 'NewsletterController@create')->name('manager.newsletter.create');
         Route::post('/manger/newsletter', 'NewsletterController@send')->name('manager.newsletter.send');
+
+        // Statistik
+        Route::get('/manager/statistic', 'StatisticController@index')->name('manager.statistic.index');
     });
 });
 

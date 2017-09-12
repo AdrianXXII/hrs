@@ -17,9 +17,13 @@
                                         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Abbrechen
                                     </a>
                                 @else
-                                    @if (isset($success))
-                                        <div id="success-alert" class="alert alert-success">
+                                    @if (isset($success) && $success === true)
+                                        <div id="status-alert" class="alert alert-success">
                                             <strong>Senden Erfolgreich!</strong> Newsletter konnte erfolgreich versendet werden.
+                                        </div>
+                                    @elseif ((isset($success) && $success === false))
+                                        <div id="status-alert" class="alert alert-danger">
+                                            <strong>Senden Fehlgeschlagen!</strong> Newsletter konnte nicht versendet werden.
                                         </div>
                                     @endif
                                     <?php $to = "" ?>
@@ -92,8 +96,8 @@
 
 @section ('scripts')
     <script>
-        $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-            $("#success-alert").slideUp(500);
+        $("#status-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#status-alert").slideUp(500);
         });
     </script>
 @endsection
