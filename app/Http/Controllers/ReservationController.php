@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Reservation;
+use App\Room;
+use App\Roomtype;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
@@ -15,8 +19,15 @@ class ReservationController extends Controller
     public function index()
     {
         //
-        $reservations = Reservation::where('active',true)->get();
-        return $reservations;
+        $hotels = Auth::user()->hotels;
+        $reservations = Reservation::where('active',true)->whereHas('roomtype',function($q){
+            $q->whereHas('hotel', function($q1){
+                $q1->whereHas('users', function($q2){
+                    $q2->where('id', Auth::id());
+                });
+            });
+        })->get();
+        return view('manager.reservations.index', compact('reservations','hotels'));
     }
 
     /**
@@ -24,9 +35,19 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        if($request->get('endDatum') == null || $request->get('startDatum') == null || $request->get('roomtype') == null)
+
+            return "one is null :  - " . $request->get('endDatum') . " - " . $request->get('startDatum') . " - " . $request->get('roomtype');
+
+        $endDatum = new Carbon($request->get('endDatum'));
+        $startDatum = new Carbon($request->get('startDatum'));
+        $roomtype = Roomtype::find($request->get('roomtype'));
+        $rooms = Reservation::getAvailableRooms($startDatum, $endDatum, $roomtype);
+
+        return view('manager.reservations.create', compact('roomtype','startDatum','endDatum','rooms'));
     }
 
     /**
@@ -38,6 +59,25 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
         //
+        $bookingDate = new Carbon();
+        $endDate = new Carbon($request->get('endDatum'));
+        $startDate = new Carbon($request->get('startDatum'));
+        $roomtype = Roomtype::find($request->get('roomtypeId'));
+        $room = Room::getAvailbleRooms($startDate, $endDate, $request->get('roomtype'))->first();
+
+        $reservation = new Reservation();
+        $reservation->name = $request->get('name');
+        $reservation->firstname = $request->get('firstname');
+        $reservation->email = $request->get('email');
+        $reservation->price = $request->get('price');
+        $reservation->stauts = Reservation::STATUS_NEW;
+        $reservation->bookdate = $bookingDate;
+        $reservation->reservation_start = $startDate;
+        $reservation->reservation_end = $endDate;
+
+        $reservation->room()->associate($room);
+        $reservation->roomtype()->associate($roomtype);
+        $reservation->save();
         return redirect(route('manager.reservations.index'));
     }
 
@@ -47,9 +87,13 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Reservation $reservation)
     {
         //
+        $rooms = Reservation::getAvailableRooms($reservation->reservation_start, $reservation->reservation_end, $reservation->roomtype);
+        $rooms->push($reservation->room);
+        $hotel = $reservation->roomtype->hotel;
+        return view('manager.reservations.edit', compact('hotel','rooms','reservation'));
     }
 
     /**
@@ -65,6 +109,11 @@ class ReservationController extends Controller
         if($reservation->active == false){
             return redirect(route('manager.reservations.index'));
         }
+        $room = Room::find($request->get('roomId'));
+
+        $reservation->status = $request->get('status');
+        $reservation->room()->associate($room);
+        $reservation->save();
         return redirect(route('manager.reservations.index'));
     }
 

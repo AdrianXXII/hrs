@@ -19,7 +19,7 @@ class ManageHotelsController extends Controller
         return view('manager.hotels.index', compact('hotels'));
     }
 
-    public function show(Hotel $hotel)
+    public function edit(Hotel $hotel)
     {
         $user = \Auth::user();
         if(! $hotel->isManagedBy($user))
@@ -27,11 +27,6 @@ class ManageHotelsController extends Controller
             return back();
         }
 
-        return view('manager.hotels.show', compact('hotel'));
-    }
-
-    public function edit(Hotel $hotel)
-    {
         $attributes = Attribute::getHotelAttributes();
         $users = User::where('active', true)
             ->where('group_id', Group::HOTELANGESTELLTER)
@@ -40,9 +35,23 @@ class ManageHotelsController extends Controller
         return view('manager.hotels.edit',compact('hotel', 'users', 'attributes'));
     }
 
-    public function update(UpdateHotelPostRequest $request, Hotel $hotel)
+    public function update(Hotel $hotel)
     {
-        $hotel->syncAttributes($request->get('attributes'));
+        $user = \Auth::user();
+        if(! $hotel->isManagedBy($user))
+        {
+            return back();
+        }
+
+        $staff = request()->get('staff');
+
+        foreach ($hotel->getManagers()->toArray() as $manager)
+        {
+            $staff[] = $manager['id'];
+        }
+
+        $hotel->syncAttributes(request()->get('attributes'));
+        $hotel->syncUsers($staff);
 
         $hotel->update();
 

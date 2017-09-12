@@ -44,17 +44,11 @@
                                                     </option>
                                                 @endforeach
                                             </select>
-
-                                            @if ($errors->has('attributes'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('managers') }}</strong>
-                                                </span>
-                                            @endif
                                         </div>
                                     </div>
 
                                     <div class="form-group{{ $errors->has('managers') ? ' has-error' : '' }}">
-                                        <label for="managers" class="col-md-4 control-label">Hotel Manager</label>
+                                        <label for="managers" class="col-md-4 control-label">Hotelangestellte</label>
                                         <div class="col-md-6">
                                             <select size="11" name="staff[]"  class="form-control" id="managers" multiple>
                                                 @foreach ($users as $user)

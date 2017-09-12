@@ -18,6 +18,11 @@ class Hotel extends Model
         return $this->hasMany('App\Review');
     }
 
+    public function newsletters()
+    {
+        return $this->hasMany('App\Newsletter');
+    }
+
     public function attributes()
     {
         return $this->belongsToMany('App\Attribute', 'attribute_hotel');
@@ -104,5 +109,11 @@ class Hotel extends Model
         }
 
         return $mergedRooms->sortBy('room_number');
+    }
+
+    public function getReviews(){
+        return $this->reviews->filter(function($value, $key){
+            return $value->active == 1;
+        })->all();
     }
 }

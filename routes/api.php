@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/api/v1/reviews', 'ReviewApiController@index');
-Route::put('/api/v1/reviews', 'ReviewApiController@store');
-Route::post('/api/v1/reviews', 'ReviewApiController@update');
-Route::delete('/api/v1/reviews', 'ReviewApiController@destroy');
+Route::get('/v1/hotel/{hotel}/review', 'ReviewApiController@index');
+Route::get('/v1/hotel/{hotel}/review/{review}', 'ReviewApiController@show');
+Route::put('/v1/{hotel}/review', 'ReviewApiController@store');
+Route::delete('/v1/{hotel}/review', 'ReviewApiController@destroy');

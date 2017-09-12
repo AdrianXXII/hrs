@@ -43,4 +43,24 @@ class Roomtype extends Model
         return $this->rooms()->where('active', true)
             ->get();
     }
+
+    public function hasAttribute(Attribute $attribute)
+    {
+        return count($this->attributes()->get()->where('id', $attribute->id));
+    }
+
+    public function syncAttributes(array $attributeId = null)
+    {
+        $this->attributes()->sync($attributeId);
+    }
+
+    public static function searchByDates($fromDate, $toDate)
+    {
+        return [];
+    }
+
+    public static function searchByCategoryAndDates($category, $fromDate, $toDate)
+    {
+        return [];
+    }
 }

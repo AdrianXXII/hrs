@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Collection;
 
 class User extends Authenticatable
 {
@@ -51,5 +52,24 @@ class User extends Authenticatable
     public function getHotels()
     {
         return $this->hotels()->where('active', true)->get();
+    }
+
+    public function getStaff()
+    {
+        $staff = null;
+
+        if($this->group_id != Group::HOTELMANAGER) return new Collection();
+
+        foreach($this->hotels as $hotel){
+
+            if($staff == null) {
+                $staff = $hotel->getStaff();
+
+                continue;
+            }
+
+            $staff = $hotel->getStaff()->merge($staff);
+        }
+        return $staff;
     }
 }

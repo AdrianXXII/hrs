@@ -5,10 +5,13 @@
                 <a href="{{ route('manager.hotels.index') }}">Meine Hotels</a>
             </li>
             <li>
-                <a href="{{ route('manager.users.index') }}">Meine Benutzer</a>
+                <a href="{{ route('manager.users.index') }}">Meine Hotelangestellten</a>
             </li>
             <li>
                 <a href="{{ route('manager.reservations.index') }}">Reservationen</a>
+            </li>
+            <li>
+                <a href="{{ route('manager.newsletter.create') }}">Newsletter erstellen</a>
             </li>
         </ul>
     </div>
