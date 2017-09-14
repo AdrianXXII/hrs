@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 class StatisticController extends Controller
 {
     public function index()
-    {
+    {        
         $timeRange = request()->get('timerange');
         
         if($timeRange === null OR $timeRange < 30 OR $timeRange > 365)
@@ -18,10 +18,18 @@ class StatisticController extends Controller
         }
 
         $user = \Auth::user();
-        $statsProfitableRooms = Room::getStatsProfitableRooms($this->getReservations($user->getRooms()), $timeRange);
-        $statsUsingRoom = Room::getStatsRoomUsing($this->getReservations($user->getRooms()), $timeRange);
 
-        return view('manager.statistic.index', compact('statsProfitableRooms', 'statsUsingRoom', 'timeRange'));
+        if($user->getRooms()->count() === 0)
+        {
+            $noRoomAvailable = true;
+            return view('manager.statistic.index', compact('noRoomAvailable', 'timeRange'));
+        }
+
+        $statsProfitableRooms = Room::getStatsProfitableRooms($this->getReservations($user->getRooms()), $timeRange, $user);
+        $statsUsingRoom = Room::getStatsRoomUsing($this->getReservations($user->getRooms()), $timeRange, $user);
+        $statsNonSeller = Room::getNonSeller($this->getReservations($user->getRooms()), $timeRange, $user);
+
+        return view('manager.statistic.index', compact('statsProfitableRooms', 'statsUsingRoom', 'statsNonSeller', 'timeRange'));
     
     }
 
@@ -38,7 +46,6 @@ class StatisticController extends Controller
 
             $mergedReservations = $room->reservations->merge($mergedReservations);
         }
-
 
         return $mergedReservations;
     }

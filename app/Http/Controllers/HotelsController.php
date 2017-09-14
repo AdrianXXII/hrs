@@ -8,7 +8,11 @@ class HotelsController extends Controller
 {
     public function index(Hotel $hotels)
     {
-        $hotels = $hotels->all()->where('active', true);
+        $hotels = Hotel::whereHas('roomtypes', function ($roomtype) {
+            $roomtype->whereHas('rooms', function($room) {
+                $room->where('active', true);
+            });
+        })->where('active', true)->get();
 
         return view('hotels', compact('hotels'));
     }

@@ -32,9 +32,19 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12 col-sm-12">
-                                @include('manager.statistic.part.profitablerooms')
-                                <hr>
-                                @include('manager.statistic.part.roomusing')
+                                @if(isset($noRoomAvailable))
+                                        <h1>Leider keine Statistikdaten vorhanden</h1>
+                                        <p>Es sind Zimmer im System erfasst.</p>
+                                        <a href="{{ route('manager.hotels.index') }}" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Abbrechen
+                                        </a>
+                                @else
+                                    @include('manager.statistic.part.profitablerooms')
+                                    <hr>
+                                    @include('manager.statistic.part.roomusing')
+                                    <hr>
+                                    @include('manager.statistic.part.nonsellingrooms')
+                                @endif
                             </div>
                         </div>
                     </div>

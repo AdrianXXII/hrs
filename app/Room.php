@@ -27,7 +27,7 @@ class Room extends Model
         })->get();
     }
 
-    public static function getStatsProfitableRooms($reservations, $lastDays)
+    public static function getStatsProfitableRooms($reservations, $lastDays, $manager)
     {
         $relevantReservations = [];
 
@@ -36,7 +36,7 @@ class Room extends Model
             $relevantReservations[] = $reservation->id;
         }
 
-        return \DB::table('reservations')->selectRaw('room_id, sum(price) as sum')
+        $stats = \DB::table('reservations')->selectRaw('room_id, sum(price) as sum')
                                       ->where('active', true)
                                       ->where('status', Reservation::STATUS_CONFIRMED)
                                       ->where('reservation_start', '<=', Carbon::now())
@@ -45,9 +45,17 @@ class Room extends Model
                                       ->groupBy('room_id')
                                       ->orderBy('sum', 'desc')
                                       ->pluck('sum', 'room_id');
+
+        foreach($manager->getRooms() as $room) {
+            if(! $stats->has($room->id)) {
+                $stats->put($room->id, "0.00");
+            }
+        }
+
+        return $stats;
     }
 
-    public static function getStatsRoomUsing($reservations, $lastDays)
+    public static function getStatsRoomUsing($reservations, $lastDays, $manager)
     {
         $relevantReservations = [];
 
@@ -66,5 +74,17 @@ class Room extends Model
         return \DB::table(\DB::raw("({$subQuery->toSql()}) as sub"))
                     ->selectRaw('room_id, sum(days) as sum')
                     ->groupBy('room_id')->mergeBindings($subQuery)->get();
+    }
+
+    public static function getNonSeller($reservations, $lastDays, $manager) {
+        $stats = self::getStatsProfitableRooms($reservations, $lastDays, $manager);
+        foreach($stats as $roomid => $sales)
+        {
+            if($sales != 0) {
+                $stats->forget($roomid);
+            }
+        }
+
+        return $stats;
     }
 }
