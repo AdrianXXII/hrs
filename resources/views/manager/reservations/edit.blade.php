@@ -10,7 +10,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-12 col-sm-10">
+                            <div class="col-lg-6">
                                 <h2>{{ $hotel->name }}</h2>
                                 @for ($i = 0; $i < $hotel->stars; $i++)
                                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -18,6 +18,15 @@
                                 <br>
                                 <img alt="hotelsample" class="img-thumbnail" src="/img/hotelsample.jpg" data-holder-rendered="true">
                                 <p>{{ $hotel->description }}</p>
+                            </div>
+                            <div class="col-lg-6">
+                                <h2>{{ $roomtype->title }}</h2>
+                                @for ($i = 0; $i < $roomtype->category->number_of_beds ; $i++)
+                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                @endfor
+                                <br>
+                                <img alt="hotelsample" class="img-thumbnail" src="/img/roomsample.jpg" data-holder-rendered="true">
+                                <p>{{ $roomtype->description }}</p>
                             </div>
                         </div>
                     </div>

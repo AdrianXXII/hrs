@@ -63,14 +63,14 @@ class ReservationController extends Controller
         $endDate = new Carbon($request->get('endDatum'));
         $startDate = new Carbon($request->get('startDatum'));
         $roomtype = Roomtype::find($request->get('roomtypeId'));
-        $room = Room::getAvailbleRooms($startDate, $endDate, $request->get('roomtype'))->first();
+        $rooms = Room::getAvailbleRooms($startDate, $endDate, $request->get('roomtype'));
 
         $reservation = new Reservation();
         $reservation->name = $request->get('name');
         $reservation->firstname = $request->get('firstname');
         $reservation->email = $request->get('email');
         $reservation->price = $request->get('price');
-        $reservation->stauts = Reservation::STATUS_NEW;
+        $reservation->status = Reservation::STATUS_NEW;
         $reservation->bookdate = $bookingDate;
         $reservation->reservation_start = $startDate;
         $reservation->reservation_end = $endDate;

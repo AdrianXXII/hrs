@@ -20,5 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/v1/hotel/{hotel}/review', 'ReviewApiController@index');
 Route::get('/v1/hotel/{hotel}/review/{review}', 'ReviewApiController@show');
-Route::put('/v1/{hotel}/review', 'ReviewApiController@store');
-Route::delete('/v1/{hotel}/review', 'ReviewApiController@destroy');
+Route::post('/v1/hotel/{hotel}/review', 'ReviewApiController@store');

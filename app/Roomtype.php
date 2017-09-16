@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Collection;
+
 class Roomtype extends Model
 {
     use DeactivateTrait;
@@ -54,13 +56,35 @@ class Roomtype extends Model
         $this->attributes()->sync($attributeId);
     }
 
-    public static function searchByDates($fromDate, $toDate)
+    public static function searchByDate($startDate,$endDate)
     {
-        return [];
+        $rooms = Room::searchByDate($startDate,$endDate);
+        $roomtypes = new Collection();
+        foreach($rooms as $room){
+            $roomtypes->push($room->roomtype);
+        }
+        return $roomtypes;
     }
 
-    public static function searchByCategoryAndDates($category, $fromDate, $toDate)
+    public static function searchByDateAndAttributes($startDate,$endDate,$attributes)
     {
-        return [];
+        $roomtypes = self::searchByDate($startDate,$endDate);
+        $roomtypes->wherein('attributes',$attributes)->whereHave('hotel',function($q) use ($attributes){
+            $q->wherein('attributes',$attributes);
+        })->all();
+    }
+
+    public static function searchByDateAndCategory($startDate,$endDate,$category)
+    {
+        $roomtypes = self::searchByDate($startDate,$endDate);
+        $roomtypes->where('category_id',$category->id)->all();
+    }
+
+    public static function searchByDateAndAttributesAndCategory($startDate,$endDate,$attributes,$category)
+    {
+        $roomtypes = self::searchByDate($startDate,$endDate);
+        $roomtypes->where('category',$category)->wherein('attributes',$attributes)->whereHave('hotel',function($q) use ($attributes){
+            $q->wherein('attributes',$attributes);
+        })->all();
     }
 }
