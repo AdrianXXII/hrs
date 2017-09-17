@@ -23,10 +23,11 @@ class Room extends Model
 
     public static function getAvailbleRooms($startDate,$endDate,$roomtype)
     {
-        return self::where('active',true)
+        return self::where('active', true)
             ->where('roomtype_id', $roomtype->id)
             ->whereDoesntHave('reservations', function($q) use ($startDate,$endDate) {
-                $q->whereRaw('(? between reservation_start AND reservation_end OR ? between reservation_start AND reservation_end)', [$startDate,$endDate]);
+                $q->whereRaw('(? between reservation_start AND reservation_end OR ? between reservation_start AND reservation_end)', [$startDate,$endDate])
+                    ->where('active',true);
             })->get();
     }
 

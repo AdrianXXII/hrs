@@ -20,13 +20,13 @@
                                 <p>{{ $hotel->description }}</p>
                             </div>
                             <div class="col-lg-6">
-                                <h2>{{ $roomtype->title }}</h2>
-                                @for ($i = 0; $i < $roomtype->category->number_of_beds ; $i++)
+                                <h2>{{ $reservation->roomtype->title }}</h2>
+                                @for ($i = 0; $i < $reservation->roomtype->category->number_of_beds ; $i++)
                                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                 @endfor
                                 <br>
                                 <img alt="hotelsample" class="img-thumbnail" src="/img/roomsample.jpg" data-holder-rendered="true">
-                                <p>{{ $roomtype->description }}</p>
+                                <p>{{ $reservation->roomtype->description }}</p>
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="firstname" class="col-md-4 control-label">email</label>
+                                        <label for="firstname" class="col-md-4 control-label">Email</label>
                                         <div class="col-md-6">
                                             {{ $reservation->email }}
                                         </div>
@@ -79,21 +79,27 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="lastname" class="col-md-4 control-label">End</label>
+                                        <label for="lastname" class="col-md-4 control-label">Ende</label>
                                         <div class="col-md-6">
                                             {{ (new \Carbon\Carbon($reservation->reservation_end))->format('d.m.Y') }}
                                         </div>
                                     </div>
 
-                                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                        <label for="email" class="col-md-4 control-label">Price</label>
+                                    <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
+                                        <label for="price" class="col-md-4 control-label">Preis</label>
                                         <div class="col-md-6">
-                                            {{ $reservation->price }}
+                                            <input type="text" class="form-control" name="price" id="price" value="{{ old('price',$reservation->price) }}">
+
                                         </div>
+                                        @if ($errors->has('price'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('price') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
 
                                     <div class="form-group{{ $errors->has('roomId') ? ' has-error' : '' }}">
-                                        <label for="roomId" class="col-md-4 control-label">Room</label>
+                                        <label for="roomId" class="col-md-4 control-label">Zimmer</label>
                                         <div class="col-md-6">
                                             <select name="roomId" id="roomId" class="form-control">
                                                 @foreach($rooms as $room)

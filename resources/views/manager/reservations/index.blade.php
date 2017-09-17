@@ -45,10 +45,12 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12 col-sm-12">
-                                <div class="float-right">
-                                    <a href="{{ route('manager.reservations.create') }}" class="btn btn-primary">
-                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Neu
-                                    </a>
+                                <div class="{{ $errors->has('rooms') ? ' has-error' : '' }}">
+                                    @if ($errors->has('rooms'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('rooms') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <table class="table table-striped">
                                     <thead>
@@ -70,7 +72,7 @@
                                                 <td>{{ $reservation->roomtype->title }}</td>
                                                 <td>{{ $reservation->room->room_number }}</td>
                                                 <td>{{ $reservation->name }}</td>
-                                                <td>{{ (new \Carbon\Carbon($reservation->room->reservation_start))->format('d.m.Y') }} - {{ (new \Carbon\Carbon($reservation->room->reservation_end))->format('d.m.Y') }}</td>
+                                                <td>{{ (new \Carbon\Carbon($reservation->reservation_start))->format('d.m.Y') }} - {{ (new \Carbon\Carbon($reservation->reservation_end))->format('d.m.Y') }}</td>
                                                 <td>
                                                     <a href="{{ route('manager.reservations.edit', ['id' => $reservation->id]) }}" class="btn btn-primary">
                                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
