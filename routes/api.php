@@ -21,3 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/v1/hotel/{hotel}/review', 'ReviewApiController@index');
 Route::get('/v1/hotel/{hotel}/review/{review}', 'ReviewApiController@show');
 Route::post('/v1/hotel/{hotel}/review', 'ReviewApiController@store');
+
+
+Route::get('/v1/search/{from}/{to}', 'SearchApiController@search');
+Route::get('/v1/search/{hotel}/{from}/{to}', 'SearchApiController@searchHotel');

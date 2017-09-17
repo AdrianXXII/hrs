@@ -13,15 +13,27 @@
                             <div class="col-lg-12 col-sm-12">
                                 <form class="form-inline" action="{{ route('manager.reservations.create') }}" method="GET">
                                     <div class="form-group">
-                                        <label for="startDate">Von</label>
-                                        <input type="date" class="form-control" name="startDatum" id="startDatum">
+                                        <label for="startDate" class="col-md-4 control-label">Von</label>
+
+                                        <div class="input-group date bs-datepicker-von">
+                                            <input type="text" class="form-control" name="startDatum" id="startDatum">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="endDatum">Bis</label>
-                                        <input type="date" class="form-control" name="endDatum" id="endDatum">
+                                        <label for="endDatum" class="col-md-4 control-label">Bis</label>
+
+                                        <div class="input-group date bs-datepicker-bis">
+                                            <input type="text" class="form-control" name="endDatum" id="endDatum">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="roomtype">Zimmerart</label>
+                                        <label for="roomtype" class="col-md-4 control-label">Zimmerart</label>
                                         <select name="roomtype" class="form-control" id="roomtype">
                                             @foreach($hotels as $hotel)
                                                 @foreach($hotel->roomtypes as $roomtype)
@@ -34,6 +46,13 @@
                                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Neu
                                     </button>
                                 </form>
+                                <div class="{{ $errors->has('rooms') ? ' has-error' : '' }}">
+                                    @if ($errors->has('rooms'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('rooms') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -45,13 +64,6 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12 col-sm-12">
-                                <div class="{{ $errors->has('rooms') ? ' has-error' : '' }}">
-                                    @if ($errors->has('rooms'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('rooms') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
@@ -60,6 +72,7 @@
                                             <th>Zimmer</th>
                                             <th>Kunde</th>
                                             <th>Datum</th>
+                                            <th>Status</th>
                                             <th>
 
                                             </th>
@@ -73,6 +86,7 @@
                                                 <td>{{ $reservation->room->room_number }}</td>
                                                 <td>{{ $reservation->name }}</td>
                                                 <td>{{ (new \Carbon\Carbon($reservation->reservation_start))->format('d.m.Y') }} - {{ (new \Carbon\Carbon($reservation->reservation_end))->format('d.m.Y') }}</td>
+                                                <td>{{ $reservation->getStatusText() }}</td>
                                                 <td>
                                                     <a href="{{ route('manager.reservations.edit', ['id' => $reservation->id]) }}" class="btn btn-primary">
                                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>

@@ -14,15 +14,6 @@ class Attribute extends Model
     ];
 
     /**
-     * Deactivate Attribute
-     * @return bool
-     */
-    public function deactivate(){
-        $this->active = false;
-        return $this->save();
-    }
-
-    /**
      * Gets the hotel attributes
      * @return mixed
      */

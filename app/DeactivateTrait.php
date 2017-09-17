@@ -17,6 +17,8 @@ trait DeactivateTrait
         if (! $this->active)
         {
             return true;
+        } else {
+            return false;
         }
     }
 }

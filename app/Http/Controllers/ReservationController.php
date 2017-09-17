@@ -37,10 +37,11 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(ReservationStoreRequest $request)
+    public function create(Request $request)
     {
         //
         if($request->get('endDatum') == null || $request->get('startDatum') == null || $request->get('roomtype') == null){
+            // return "EndDatum; " + $request->get('endDatum') + ", StartDatum: " + $request->get('startDatum') + ", Roomtype: "+$request->get('roomtype');//
             return back()->withErrors(['rooms' => 'Sie müssen ein Zeitraum und Zimmerart angeben']);
         }
 
@@ -50,6 +51,7 @@ class ReservationController extends Controller
         $rooms = Reservation::getAvailableRooms($startDatum, $endDatum, $roomtype);
 
         if ($rooms == null || $rooms->count() == 0 ){
+            //return $rooms;//
             return back()->withErrors(['rooms' => 'Keine Zimmer sind verfügbar für diese Zimmerart und Datum.']);
         }
 
@@ -62,7 +64,7 @@ class ReservationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ReservationStoreRequest $request)
     {
         //
         $bookingDate = new Carbon();

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use phpDocumentor\Reflection\Types\Integer;
+
 class Reservation extends Model
 {
     use DeactivateTrait;
@@ -24,5 +26,29 @@ class Reservation extends Model
 
     public static function getAvailableRooms($startDate,$endDate,$roomtype){
         return Room::getAvailbleRooms($startDate, $endDate, $roomtype);
+    }
+
+    public static function decodeStatus($satus_code){
+        switch($satus_code){
+            case SELF::STATUS_NEW:
+                return "Neu";
+                break;
+            case SELF::STATUS_CONFIRMED:
+                return "Bestätigt";
+                break;
+            case SELF::STATUS_REJECTED:
+                return "Abgelent";
+                break;
+            case SELF::STATUS_CANCELLED:
+                return "Abgesagt";
+                break;
+            default:
+                return "N/A";
+
+        }
+    }
+
+    public function getStatusText(){
+        return SELF::decodeStatus($this->status);
     }
 }

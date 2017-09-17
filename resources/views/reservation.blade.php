@@ -70,7 +70,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                        <label for="firstname" class="col-md-4 control-label">email</label>
+                                        <label for="firstname" class="col-md-4 control-label">Email</label>
                                         <div class="col-md-6">
                                             <input type="text" class="form-control" name="email" id="email" value="{{ old('email') }}">
                                         </div>
@@ -80,10 +80,26 @@
                                                 </span>
                                         @endif
                                     </div>
+                                    <div class="form-group{{ $errors->has('telephone') ? ' has-error' : '' }}">
+                                        <label for="telephone" class="col-md-4 control-label">Tel.</label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" name="telephone" id="telephone" value="{{ old('telephone') }}">
+                                        </div>
+                                        @if ($errors->has('telephone'))
+                                            <span class="help-block">
+                                                    <strong>{{ $errors->first('telephone') }}</strong>
+                                                </span>
+                                        @endif
+                                    </div>
                                     <div class="form-group{{ $errors->has('startDatum') ? ' has-error' : '' }}">
                                         <label for="startDatum" class="col-md-4 control-label">Start</label>
                                         <div class="col-md-6">
-                                            <input id="startDatum" type="text" class="form-control" name="startDatum" value="{{ old('startDatum') }}">
+                                            <div class="input-group date bs-datepicker-von">
+                                                <input id="startDatum" type="text" class="form-control" name="startDatum" value="{{ old('startDatum') }}">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
                                         </div>
                                         @if ($errors->has('startDatum'))
                                             <span class="help-block">
@@ -92,9 +108,14 @@
                                         @endif
                                     </div>
                                     <div class="form-group{{ $errors->has('endDatum') ? ' has-error' : '' }}">
-                                        <label for="endDatum" class="col-md-4 control-label">End</label>
+                                        <label for="endDatum" class="col-md-4 control-label">Bis</label>
                                         <div class="col-md-6">
-                                            <input id="endDatum" type="text" class="form-control" name="endDatum" value="{{ old('endDatum') }}">
+                                            <div class="input-group date bs-datepicker-bis">
+                                                <input id="endDatum" type="text" class="form-control" name="endDatum" value="{{ old('endDatum') }}">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
                                         </div>
                                         @if ($errors->has('endDatum'))
                                             <span class="help-block">

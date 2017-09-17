@@ -60,31 +60,63 @@ class Roomtype extends Model
     {
         $rooms = Room::searchByDate($startDate,$endDate);
         $roomtypes = new Collection();
+        $lastroom = null;
+        $i = 0;
         foreach($rooms as $room){
-            $roomtypes->push($room->roomtype);
+            if($lastroom != null && $room->roomtype->id == $lastroom->id){
+                $lastroom->number_of_available_rooms += 1;
+            } else {
+                $roomtypes->push($room->roomtype);
+                $lastroom = $room->roomtype;
+                $lastroom->number_of_available_rooms = 1;
+            }
         }
         return $roomtypes;
     }
 
-    public static function searchByDateAndAttributes($startDate,$endDate,$attributes)
-    {
+    public static function searchByDateAndHotel($startDate,$endDate,$hotel){
         $roomtypes = self::searchByDate($startDate,$endDate);
-        $roomtypes->wherein('attributes',$attributes)->whereHave('hotel',function($q) use ($attributes){
-            $q->wherein('attributes',$attributes);
-        })->all();
+        return $roomtypes->filter(function($value, $key) use ($hotel){
+            return ($value->hotel->id == $hotel->id);
+        });
+    }
+
+    public static function searchByDateAndAttributes($startDate,$endDate,$attributes){
+        $roomtypes = self::searchByDate($startDate,$endDate);
+        return $roomtypes->filter(function($value) use ($attributes){
+            $allowed = true;
+            foreach($attributes as $attribute){
+                if($attribute->hotel_atr == true){
+                    $allowed = ($allowed && $value->hotel->attributes()->get()->contains($attribute));
+                } else {
+                    $allowed = ($allowed && $value->attributes()->get()->contains($attribute));
+                }
+            }
+            return $allowed;
+        });
     }
 
     public static function searchByDateAndCategory($startDate,$endDate,$category)
     {
         $roomtypes = self::searchByDate($startDate,$endDate);
-        $roomtypes->where('category_id',$category->id)->all();
+        return $roomtypes->filter(function($value, $key) use ($category){
+            return ($value->category->id == $category->id);
+        });
     }
 
     public static function searchByDateAndAttributesAndCategory($startDate,$endDate,$attributes,$category)
     {
         $roomtypes = self::searchByDate($startDate,$endDate);
-        $roomtypes->where('category',$category)->wherein('attributes',$attributes)->whereHave('hotel',function($q) use ($attributes){
-            $q->wherein('attributes',$attributes);
-        })->all();
+        return $roomtypes->filter(function($value) use ($category, $attributes){
+            $allowed = ($value->category->id == $category->id);
+            foreach($attributes as $attribute){
+                if($attribute->hotel_atr == true){
+                    $allowed = ($allowed && $value->hotel->attributes()->get()->contains($attribute));
+                } else {
+                    $allowed = ($allowed && $value->attributes()->get()->contains($attribute));
+                }
+            }
+            return $allowed;
+        });
     }
 }
