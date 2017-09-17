@@ -4,6 +4,10 @@ Route::get('/', function () {
     return redirect()->route('hotels.index');
 })->name("home");
 
+Route::get('/test', function() {
+   return view('test');
+});
+
 Route::get('/hotels', 'HotelsController@index')->name("hotels.index");
 Route::get('/hotels/{hotel}', 'HotelsController@show')->name("hotels.show");
 Route::post('/hotels/{hotel}/review', 'ReviewController@store')->name('review.save');
