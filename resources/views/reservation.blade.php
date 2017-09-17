@@ -29,6 +29,20 @@
                                 <p>{{ $roomtype->description }}</p>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <h4>Hotelausstattung</h4>
+                                @foreach($hotel->attributes as $attribute)
+                                    <span class="label label-primary">{{ $attribute->description }}</span>
+                                @endforeach
+                            </div>
+                            <div class="col-lg-4 col-lg-offset-2">
+                                <h4>Zimmerausstattung</h4>
+                                @foreach($roomtype->attributes as $attribute)
+                                    <span class="label label-primary">{{ $attribute->description }}</span>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="panel panel-default">

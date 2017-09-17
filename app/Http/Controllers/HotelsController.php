@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Hotel;
+use App\Category;
+use App\Attribute;
 
 class HotelsController extends Controller
 {
@@ -14,7 +16,11 @@ class HotelsController extends Controller
             });
         })->where('active', true)->get();
 
-        return view('hotels', compact('hotels'));
+        $categories = Category::where('active', true)->get();
+        $hotelAttributes = Attribute::all()->where('active', true)->where('hotel_atr', true);
+        $roomAttributes = Attribute::all()->where('active', true)->where('hotel_atr', false);
+
+        return view('hotels', compact('hotels', 'categories', 'hotelAttributes', 'roomAttributes'));
     }
 
     public function show(Hotel $hotel)

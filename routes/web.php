@@ -4,9 +4,9 @@ Route::get('/', function () {
     return redirect()->route('hotels.index');
 })->name("home");
 
-Route::get('/test', function() {
-   return view('test');
-});
+Route::post('/test', function() {
+    dd(request());
+})->name('test');
 
 Route::get('/hotels', 'HotelsController@index')->name("hotels.index");
 Route::get('/hotels/{hotel}', 'HotelsController@show')->name("hotels.show");
