@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
 class Room extends Model
 {
@@ -22,9 +23,12 @@ class Room extends Model
 
     public static function getAvailbleRooms($startDate,$endDate,$roomtype)
     {
-        return self::where('active',true)->where('roomtype_id', $roomtype->id)->whereDoesntHave('reservations', function($q) use ($startDate,$endDate) {
-            $q->where('reservation_start','>=',$startDate)->where('reservation_end','<=',$endDate);
-        })->get();
+        return self::where('active', true)
+            ->where('roomtype_id', $roomtype->id)
+            ->whereDoesntHave('reservations', function($q) use ($startDate,$endDate) {
+                $q->whereRaw('(? between reservation_start AND reservation_end OR ? between reservation_start AND reservation_end)', [$startDate,$endDate])
+                    ->where('active',true);
+            })->get();
     }
 
     public static function getStatsProfitableRooms($reservations, $lastDays, $manager)
@@ -86,5 +90,11 @@ class Room extends Model
         }
 
         return $stats;
+    }
+
+    public static function searchByDate($startDate,$endDate){
+        return SELF::where('active',true)->whereDoesntHave('reservations', function($q) use ($startDate, $endDate){
+                $q->whereRaw('(? between reservation_start AND reservation_end OR ? between reservation_start AND reservation_end)', [$startDate,$endDate]);
+        })->get();
     }
 }

@@ -14,7 +14,7 @@
                     <br>
                     <img alt="hotelsample" class="img-thumbnail" src="/img/roomsample.jpg" data-holder-rendered="true">
                     <p>{{ $roomType->description }}</p>
-                    <p><a class="btn btn-primary" href="#" role="button">Reservieren »</a></p>
+                    <p><a class="btn btn-primary" href="{{ route('reserve.create', ['hotel' => $hotel->id, 'roomtype' => $roomType->id]) }}" role="button">Reservieren »</a></p>
                 </div>
             @endforeach
         @endif

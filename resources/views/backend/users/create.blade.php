@@ -87,7 +87,7 @@
                                     </div>
 
                                     <div class="form-group{{ $errors->has('groupId') ? ' has-error' : '' }}">
-                                        <label for="groupId" class="col-md-4 control-label">Group</label>
+                                        <label for="groupId" class="col-md-4 control-label">Gruppe</label>
                                         <div class="col-md-6">
                                             <select name="groupId" id="groupId" class="form-control">
                                                 @foreach($groups as $group)

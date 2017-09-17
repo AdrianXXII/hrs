@@ -11,8 +11,8 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h2>{{ $roomtype->hotel->name }}</h2>
-                                @for ($i = 0; $i < $roomtype->hotel->stars; $i++)
+                                <h2>{{ $hotel->name }}</h2>
+                                @for ($i = 0; $i < $hotel->stars; $i++)
                                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 @endfor
                                 <br>
@@ -29,7 +29,6 @@
                                 <p>{{ $roomtype->description }}</p>
                             </div>
                         </div>
-                        </div>
                     </div>
                 </div>
                 <div class="panel panel-default">
@@ -39,18 +38,17 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12 col-sm-10">
-                                <form action="{{ route('manager.reservations.save') }}" class="form-horizontal" method="POST">
+                                <form action="{{ route('reserve.save', ['hotel' => $hotel->id, 'roomtype' => $roomtype->id]) }}" class="form-horizontal" method="POST">
                                     {{ csrf_field() }}
 
                                     <div class="form-group">
                                         <label for="roomtypeId" class="col-md-4 control-label">Zimmerart</label>
                                         <div class="col-md-6">
-                                            <input type="hidden" name="roomtypeId" id="roomtypeId" value="{{ $roomtype->id }}">
-                                            <input type="text" class="form-control" readonly name="roomtype" value="{{ $roomtype->title }}">
+                                            <input type="text" readonly class="form-control" value="{{ $roomtype->title }}">
                                         </div>
                                     </div>
                                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                        <label for="name" class="col-md-4 control-label">Kundenname</label>
+                                        <label for="name" class="col-md-4 control-label">Name</label>
                                         <div class="col-md-6">
                                             <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
                                         </div>
@@ -72,7 +70,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                        <label for="firstname" class="col-md-4 control-label">Email</label>
+                                        <label for="firstname" class="col-md-4 control-label">email</label>
                                         <div class="col-md-6">
                                             <input type="text" class="form-control" name="email" id="email" value="{{ old('email') }}">
                                         </div>
@@ -85,7 +83,7 @@
                                     <div class="form-group{{ $errors->has('startDatum') ? ' has-error' : '' }}">
                                         <label for="startDatum" class="col-md-4 control-label">Start</label>
                                         <div class="col-md-6">
-                                            <input id="startDatum" type="text" class="form-control" name="startDatum" value="{{ old('startDatum', $startDatum->format('d.m.Y')) }}">
+                                            <input id="startDatum" type="text" class="form-control" name="startDatum" value="{{ old('startDatum') }}">
                                         </div>
                                         @if ($errors->has('startDatum'))
                                             <span class="help-block">
@@ -94,9 +92,9 @@
                                         @endif
                                     </div>
                                     <div class="form-group{{ $errors->has('endDatum') ? ' has-error' : '' }}">
-                                        <label for="endDatum" class="col-md-4 control-label">Ende</label>
+                                        <label for="endDatum" class="col-md-4 control-label">End</label>
                                         <div class="col-md-6">
-                                            <input id="endDatum" type="text" class="form-control" name="endDatum" value="{{ old('endDatum', $endDatum->format('d.m.Y')) }}">
+                                            <input id="endDatum" type="text" class="form-control" name="endDatum" value="{{ old('endDatum') }}">
                                         </div>
                                         @if ($errors->has('endDatum'))
                                             <span class="help-block">
@@ -104,39 +102,16 @@
                                                 </span>
                                         @endif
                                     </div>
-
-                                    <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
-                                        <label for="price" class="col-md-4 control-label">Preis</label>
+                                    <div class="form-group{{ $errors->has('number_of_people') ? ' has-error' : '' }}">
+                                        <label for="number_of_people" class="col-md-4 control-label">Anzahl Gäste:</label>
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}">
-
+                                            <input type="text" class="form-control" name="number_of_people" id="number_of_people" value="{{ old('number_of_people') }}">
                                         </div>
-                                        @if ($errors->has('price'))
+                                        @if ($errors->has('number_of_people'))
                                             <span class="help-block">
-                                                <strong>{{ $errors->first('price') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-
-                                    <div class="form-group{{ $errors->has('roomId') ? ' has-error' : '' }}">
-                                        <label for="roomId" class="col-md-4 control-label">Zimmer</label>
-                                        <div class="col-md-6">
-                                            <select name="roomId" id="roomId" class="form-control">
-                                                @foreach($rooms as $room)
-                                                    @if($room->id == old('roomId'))
-                                                        <option value="{{ $room->id }}" selected="selected">{{ $room->room_number }}</option>
-                                                    @else
-                                                        <option value="{{ $room->id }}">{{ $room->room_number }}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-
-                                            @if ($errors->has('roomId'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('roomId') }}</strong>
+                                                    <strong>{{ $errors->first('number_of_people') }}</strong>
                                                 </span>
-                                            @endif
-                                        </div>
+                                        @endif
                                     </div>
 
                                     <div class="form-group">

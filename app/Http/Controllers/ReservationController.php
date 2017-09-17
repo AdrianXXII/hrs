@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReservationStoreRequest;
+use App\Http\Requests\ReservationUpdateRequest;
 use App\Reservation;
 use App\Room;
 use App\Roomtype;
@@ -26,7 +28,7 @@ class ReservationController extends Controller
                     $q2->where('id', Auth::id());
                 });
             });
-        })->get();
+        })->orderBy('reservation_start')->get();
         return view('manager.reservations.index', compact('reservations','hotels'));
     }
 
@@ -35,17 +37,21 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(ReservationStoreRequest $request)
     {
         //
-        if($request->get('endDatum') == null || $request->get('startDatum') == null || $request->get('roomtype') == null)
-
-            return "one is null :  - " . $request->get('endDatum') . " - " . $request->get('startDatum') . " - " . $request->get('roomtype');
+        if($request->get('endDatum') == null || $request->get('startDatum') == null || $request->get('roomtype') == null){
+            return back()->withErrors(['rooms' => 'Sie müssen ein Zeitraum und Zimmerart angeben']);
+        }
 
         $endDatum = new Carbon($request->get('endDatum'));
         $startDatum = new Carbon($request->get('startDatum'));
         $roomtype = Roomtype::find($request->get('roomtype'));
         $rooms = Reservation::getAvailableRooms($startDatum, $endDatum, $roomtype);
+
+        if ($rooms == null || $rooms->count() == 0 ){
+            return back()->withErrors(['rooms' => 'Keine Zimmer sind verfügbar für diese Zimmerart und Datum.']);
+        }
 
         return view('manager.reservations.create', compact('roomtype','startDatum','endDatum','rooms'));
     }
@@ -63,17 +69,32 @@ class ReservationController extends Controller
         $endDate = new Carbon($request->get('endDatum'));
         $startDate = new Carbon($request->get('startDatum'));
         $roomtype = Roomtype::find($request->get('roomtypeId'));
-        $room = Room::getAvailbleRooms($startDate, $endDate, $request->get('roomtype'))->first();
+        $room = Room::find($request->get('roomId'));
+
+        if($roomtype != null){
+            $rooms = Room::getAvailbleRooms($startDate, $endDate, $roomtype);
+            if(!$rooms->contains($room)){
+                return back()
+                    ->withErrors(['roomId' => 'Das Zimmer ist nicht mehr verfügbar.'])
+                    ->withInput();
+            }
+        } else {
+            return back()
+                ->withErrors(['roomId' => 'Keine Zimmer sind verfügbar.'])
+                ->withInput();
+        }
+
 
         $reservation = new Reservation();
         $reservation->name = $request->get('name');
         $reservation->firstname = $request->get('firstname');
         $reservation->email = $request->get('email');
         $reservation->price = $request->get('price');
-        $reservation->stauts = Reservation::STATUS_NEW;
+        $reservation->status = Reservation::STATUS_NEW;
         $reservation->bookdate = $bookingDate;
         $reservation->reservation_start = $startDate;
         $reservation->reservation_end = $endDate;
+        $reservation->active = true;
 
         $reservation->room()->associate($room);
         $reservation->roomtype()->associate($roomtype);
@@ -103,14 +124,23 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Reservation $reservation)
+    public function update(ReservationUpdateRequest $request, Reservation $reservation)
     {
         //
         if($reservation->active == false){
             return redirect(route('manager.reservations.index'));
         }
         $room = Room::find($request->get('roomId'));
+        if($reservation->roomtype != null){
+            $rooms = Room::getAvailbleRooms($reservation->reservation_start, $reservation->reservation_end, $reservation->roomtype);
+            if(!$rooms->contains($room) && $room != $reservation->room){
+                return back()
+                    ->withErrors(['roomId' => 'Das Zimmer ist nicht mehr verfügbar.'])
+                    ->withInput();
+            }
+        }
 
+        $reservation->price = $request->get('price');
         $reservation->status = $request->get('status');
         $reservation->room()->associate($room);
         $reservation->save();

@@ -11,6 +11,9 @@ Route::get('/test', function() {
 Route::get('/hotels', 'HotelsController@index')->name("hotels.index");
 Route::get('/hotels/{hotel}', 'HotelsController@show')->name("hotels.show");
 Route::post('/hotels/{hotel}/review', 'ReviewController@store')->name('review.save');
+Route::get('/hotels/{hotel}/room/{roomtype}/reserve','GuestReservationController@create')->name('reserve.create');
+Route::post('/hotels/{hotel}/room/{roomtype}/reserve','GuestReservationController@store')->name('reserve.save');
+Route::get('/search/{startDatum}/{endDatum}','SearchController@search')->name('search');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'admin'], function(){
