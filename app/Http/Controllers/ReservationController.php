@@ -89,6 +89,7 @@ class ReservationController extends Controller
 
         $reservation = new Reservation();
         $reservation->name = $request->get('name');
+        $reservation->name = $request->get('telephone');
         $reservation->firstname = $request->get('firstname');
         $reservation->email = $request->get('email');
         $reservation->price = $request->get('price');

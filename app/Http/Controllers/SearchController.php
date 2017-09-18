@@ -6,6 +6,7 @@ use App\Attribute;
 use App\Category;
 use App\Room;
 use App\Roomtype;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -13,10 +14,12 @@ class SearchController extends Controller
 {
     //
 
-    public static function search($startDatum,$endDatum){
+    public static function search(){
         $roomtypes = new Collection();
-        $from = $startDatum;
-        $to = $endDatum;
+        $ort = "";
+        $region = "";
+        $from = new Carbon('2017-09-03');
+        $to = new Carbon('2017-09-04');
         $category = Category::find(4);
         $attributes = [
             Attribute::find(14),
