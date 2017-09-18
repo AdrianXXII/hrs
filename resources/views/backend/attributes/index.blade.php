@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Attribute
+                        Zusatzleistungen
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -16,10 +16,19 @@
                                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Neu
                                     </a>
                                 </div>
+
+
+                                @if ($errors->has('error'))
+                                    <div class="{{ $errors->has('rooms') ? ' has-error' : '' }}">
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('error') }}</strong>
+                                        </span>
+                                    </div>
+                                @endif
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Attribute</th>
+                                            <th>Zusatzleistung</th>
                                             <th>Type</th>
                                             <th>
 

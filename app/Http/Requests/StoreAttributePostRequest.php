@@ -22,11 +22,11 @@ class StoreAttributePostRequest extends FormRequest
     public function messages()
     {
         return [
-            'description.required' => 'Sie müssen einen Attribute angeben!',
-            'description.max' => 'Der Attribute ist zu lange!',
-            'description.min' => 'Der Attribute ist zu kurz!',
+            'description.required' => 'Sie müssen der Zusatzleistung eine Beschreibung angeben!',
+            'description.max' => 'Die Beschreibung ist zu lange!',
+            'description.min' => 'Die Beschreibung ist zu kurz!',
             'hotel_atr.required' => 'Sie müssen einen Vornamen angeben!',
-            'hotel_atr.boolean' => 'Der Vorname ist zu lange!'
+            'hotel_atr.boolean' => 'Die Angabe ist ungültig!'
         ];
     }
 

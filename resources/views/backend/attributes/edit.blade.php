@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Attribute
+                        Zusatzleistungen
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -16,7 +16,7 @@
                                     <input type="hidden" name="_method" value="PUT">
 
                                     <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                                        <label for="description" class="col-md-4 control-label">Describtion</label>
+                                        <label for="description" class="col-md-4 control-label">Beschreibung</label>
                                         <div class="col-md-6">
                                             <input id="description" type="text" class="form-control" name="description" value="{{ old('description',$attribute->description) }}">
 

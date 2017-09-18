@@ -14,30 +14,17 @@ class SearchController extends Controller
 {
     //
 
-    public static function search(){
+    public static function search(Request $request){
         $roomtypes = new Collection();
-        $ort = "";
-        $region = "";
-        $from = new Carbon('2017-09-03');
-        $to = new Carbon('2017-09-04');
-        $category = Category::find(4);
-        $attributes = [
-            Attribute::find(14),
-            Attribute::find(1),
-            Attribute::find(17)
-        ];
-        //$attributes = null;
-        //$category = null;
+        $ort = $request->get('ort');
+        $anzahl = $request->get('anzahlPersonen');
+        $from = $request->get('anreisedatum');
+        $to = $request->get('abreiseatum');
+        $category = Category::find($request->get('zimmerKategorie'));
+        $attributes = Attribute::wherein('id', $request->get('zusatzleistung'))->get();
 
-        if($category != null && $attributes != null){
-            $roomtypes = Roomtype::searchByDateAndAttributesAndCategory($from, $to, $attributes, $category);
-        } elseif($category != null){
-            $roomtypes = Roomtype::searchByDateAndCategory($from, $to, $category);
-        } elseif($attributes != null) {
-            $roomtypes = Roomtype::searchByDateAndAttributes($from, $to, $attributes);
-        }else {
-            $roomtypes = Roomtype::searchByDate($from, $to);
-        }
+        $roomtypes = Roomtype::searchByDateAndMore($from, $to, $attributes, $category, $ort, $anzahl);
+
 
         return $roomtypes;
     }

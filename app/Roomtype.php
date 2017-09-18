@@ -61,7 +61,6 @@ class Roomtype extends Model
         $rooms = Room::searchByDate($startDate,$endDate);
         $roomtypes = new Collection();
         $lastroom = null;
-        $i = 0;
         foreach($rooms as $room){
             if($lastroom != null && $room->roomtype->id == $lastroom->id){
                 $lastroom->number_of_available_rooms += 1;
@@ -72,6 +71,33 @@ class Roomtype extends Model
             }
         }
         return $roomtypes;
+    }
+
+    public static function searchByDateAndMore($startDate, $endDate, $attributes, $category, $ort, $anzahl){
+        $roomtypes = self::searchByDate($startDate,$endDate);
+        return $roomtypes->filter(function($value) use ($attributes, $category, $ort, $anzahl){
+            $allowed = true;
+            if($attributes != null){
+                foreach($attributes as $attribute){
+                    if($attribute->hotel_atr == true){
+                        $allowed = ($allowed && $value->hotel->attributes()->get()->contains($attribute));
+                    } else {
+                        $allowed = ($allowed && $value->attributes()->get()->contains($attribute));
+                    }
+                }
+            }
+            if($category != null){
+                $allowed = $allowed && ($value->category->id == $category->id);
+            }
+            if($ort != null){
+                $allowed = $allowed && (stripos($value->hotel->area, $ort) !== false);
+            }
+            if($anzahl != null && $anzahl > 0 ){
+                $allowed = $allowed && ($value->category->number_of_beds >= $anzahl);
+            }
+
+            return $allowed;
+        });
     }
 
     public static function searchByDateAndHotel($startDate,$endDate,$hotel){

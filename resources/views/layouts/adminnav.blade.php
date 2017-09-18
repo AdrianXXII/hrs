@@ -5,7 +5,7 @@
                 <a href="{{ route('users.index') }}">Benutzer</a>
             </li>
             <li>
-                <a href="{{ route('attributes.index') }}">Eigenschaft</a>
+                <a href="{{ route('attributes.index') }}">Zusatzleistung</a>
             </li>
             <li>
                 <a href="{{ route('backend.categories.index') }}">Kategorie</a>

@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Attribute
+                        Zusatzleistungen
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -15,7 +15,7 @@
                                     {{ csrf_field() }}
 
                                     <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                                        <label for="description" class="col-md-4 control-label">Describtion</label>
+                                        <label for="description" class="col-md-4 control-label">Beschreibung</label>
                                         <div class="col-md-6">
                                             <input id="description" type="text" class="form-control" name="description" value="{{ old('description') }}">
 
@@ -31,8 +31,8 @@
                                         <label for="hotel_atr" class="col-md-4 control-label">Hotel Attribute?</label>
                                         <div class="col-md-6">
                                             @if( old('hotel_atr') == 1)
-                                                <label class="radio-inline"><input id="hotel_atr" type="radio" class="form-control" name="hotel_atr" checked value="1">Ja</label>
-                                                <label class="radio-inline"><input id="hotel_atr" type="radio" class="form-control" name="hotel_atr" value="0">Nein</label>
+                                                <label class="radio-inline"><input id="hotel_atr" type="radio" name="hotel_atr" checked value="1">Ja</label>
+                                                <label class="radio-inline"><input id="hotel_atr" type="radio" name="hotel_atr" value="0">Nein</label>
                                             @else
                                                 <label class="radio-inline"><input id="hotel_atr" type="radio" name="hotel_atr" value="1">Ja</label>
                                                 <label class="radio-inline"><input id="hotel_atr" type="radio" name="hotel_atr" checked value="0">Nein</label>

@@ -13,7 +13,7 @@ Route::get('/hotels/{hotel}', 'HotelsController@show')->name("hotels.show");
 Route::post('/hotels/{hotel}/review', 'ReviewController@store')->name('review.save');
 Route::get('/hotels/{hotel}/room/{roomtype}/reserve','GuestReservationController@create')->name('reserve.create');
 Route::post('/hotels/{hotel}/room/{roomtype}/reserve','GuestReservationController@store')->name('reserve.save');
-Route::get('/search/{startDatum}/{endDatum}','SearchController@search')->name('search');
+Route::get('/search','SearchController@search')->name('search');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'admin'], function(){
@@ -31,9 +31,9 @@ Route::group(['middleware' => 'auth'], function() {
         //Attributes
         Route::get('/backend/attributes', 'AttributeController@index')->name('attributes.index');
         Route::get('/backend/attributes/new','AttributeController@create')->name('attributes.create');
-        Route::get('/backend/attributes/{id}/edit','AttributeController@edit')->name('attributes.edit');
-        Route::put('/backend/attributes/{id}','AttributeController@update')->name('attributes.update');
-        Route::delete('/backend/attributes/{id}','AttributeController@destroy')->name('attributes.delete');
+        Route::get('/backend/attributes/{attribute}/edit','AttributeController@edit')->name('attributes.edit');
+        Route::put('/backend/attributes/{attribute}','AttributeController@update')->name('attributes.update');
+        Route::delete('/backend/attributes/{attribute}','AttributeController@destroy')->name('attributes.delete');
         Route::post('/backend/attributes','AttributeController@store')->name('attributes.save');
 
         // Hotels
@@ -101,6 +101,10 @@ Route::group(['middleware' => 'auth'], function() {
 
         // Statistik
         Route::get('/manager/statistic', 'StatisticController@index')->name('manager.statistic.index');
+    });
+
+    Route::group(['middleware' => 'manager'], function() {
+
     });
 });
 

@@ -17,7 +17,7 @@ class ManagerOnly
     public function handle($request, Closure $next)
     {
         if($request->user()->group_id != Group::HOTELMANAGER){
-            return redirect(route("home"));
+            return redirect(route("/"));
         }
         return $next($request);
     }

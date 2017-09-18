@@ -45,6 +45,16 @@ class AttributeController extends Controller
         $attribute->description = $request->get('description');
         $attribute->hotel_atr = ($request->get('hotel_atr')!=null) ? $request->get('hotel_atr') : 0 ;
         $attribute->active = 1;
+
+        $list = Attribute::where('description',$attribute->description)
+            ->where('hotel_atr',$attribute->hotel_atr)
+            ->where('active', $attribute->active)->get();
+
+        if($list->count() > 0){
+            return redirect(route('attributes.create'))->withInput()
+                ->withErrors(['description' => 'Es gibt schon eine Zusatzleistung mit dieser Beschreibung']);
+
+        }
         $attribute->save();
         return redirect(route('attributes.index'));
     }
@@ -73,8 +83,9 @@ class AttributeController extends Controller
      */
     public function edit(Attribute $attribute)
     {
-        if(!$attribute->active){
-            return redirect(route('attributes.index'));
+        if($attribute->isInactive()){
+            return redirect(route('attributes.index'))
+                ->withErrors(['error'=>'Inaktiver Zusatzleistung']);
         }
 
         return view('backend.attributes.edit', compact('attribute'));
@@ -87,12 +98,24 @@ class AttributeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreAttributePostRequest $request, $id)
+    public function update(StoreAttributePostRequest $request, Attribute $attribute)
     {
         //
-        $attribute = Attribute::find($id);
         $attribute->description = $request->get('description');
         $attribute->hotel_atr = ($request->get('hotel_atr')!=null) ? $request->get('hotel_atr') : 0 ;
+
+
+        $list = Attribute::where('description',$attribute->description)
+            ->where('hotel_atr',$attribute->hotel_atr)
+            ->where('active', $attribute->active)
+            ->where('id', '<>', $attribute->id)->get();
+
+        if($list->count() > 0){
+            return redirect(route('attributes.edit', ['id'=> $attribute->id]))
+                ->withErrors(['description' => 'Es gibt schon eine Zusatzleistung mit dieser Beschreibung'])
+                ->withInput();
+        }
+
         $attribute->save();
         return redirect(route('attributes.index'));
     }
@@ -103,11 +126,10 @@ class AttributeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Attribute $attribute)
     {
         //
-        $attribute = Attribute::find($id);
-        $attribute->inactivate();
+        $attribute->deactivate();
         return redirect(route('attributes.index'));
 
     }
