@@ -105,6 +105,14 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::group(['middleware' => 'manager'], function() {
 
+        // Reservationen
+        Route::get('/employee/reservations', 'EmployeeReservationController@index')->name('employee.reservations.index');
+        Route::get('/employee/reservations/new','EmployeeReservationController@create')->name('employee.reservations.create');
+        Route::get('/employee/reservations/{reservation}/edit','EmployeeReservationController@edit')->name('employee.reservations.edit');
+        Route::put('/employee/reservations/{reservation}','EmployeeReservationController@update')->name('employee.reservations.update');
+        Route::delete('/employee/reservations/{reservation}','EmployeeReservationController@destroy')->name('employee.reservations.delete');
+        Route::post('/employee/reservations','EmployeeReservationController@store')->name('employee.reservations.save');
+
     });
 });
 

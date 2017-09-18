@@ -75,6 +75,8 @@
             @include ('layouts.adminnav')
         @elseif (!Auth::guest() AND Auth::user()->group_id == App\Group::HOTELMANAGER)
             @include ('layouts.managernav')
+        @elseif (!Auth::guest() AND Auth::user()->group_id == App\Group::HOTELANGESTELLTER)
+            @include ('layouts.employeenav')
         @endif
 
         @yield('content')
