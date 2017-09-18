@@ -103,7 +103,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/manager/statistic', 'StatisticController@index')->name('manager.statistic.index');
     });
 
-    Route::group(['middleware' => 'manager'], function() {
+    Route::group(['middleware' => 'employee'], function() {
 
         // Reservationen
         Route::get('/employee/reservations', 'EmployeeReservationController@index')->name('employee.reservations.index');

@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use App\Group;
 use Closure;
 
-class Angestellt
+class EmployeeOnly
 {
     /**
      * Handle an incoming request.
