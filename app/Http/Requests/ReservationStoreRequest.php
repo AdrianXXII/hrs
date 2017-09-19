@@ -33,6 +33,8 @@ class ReservationStoreRequest extends FormRequest
             'email.requiredd' => 'Sie müssen eine E-Mail Adresse angeben!',
             'email.email' => 'Die E-Mail Adresse muss eine valide E-Mail Adresse sein',
             'email.max' => 'Die E-Mail Adresse ist zu lang',
+            'telephone.requiredd' => 'Die Telefonnummer fehlt!',
+            'telephone.max' => 'Die Telefonnummer ist zu lang',
             'startDatum.required' => 'Sie müssen das Startdatum des besuches angeben',
             'startDatum.date' => 'Das "Von" Datum muss eine Datum sein',
             'endDatum.required' => 'Sie müssen das Enddatum des besuches angeben',
@@ -62,6 +64,7 @@ class ReservationStoreRequest extends FormRequest
             //
             'name' => 'required|max:30|min:2',
             'firstname' => 'required|max:30|min:2',
+            'telephone' => 'required|max:30',
             'email' => 'required|email|max:50',
             'number_of_people' => 'required|integer',
             'price' => 'required|numeric',

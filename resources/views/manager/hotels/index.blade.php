@@ -27,7 +27,7 @@
 
                                                 <td>
                                                     <a href="{{ route('manager.hotels.edit', ['id' => $hotel->id]) }}" class="btn btn-primary">
-                                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                                     </a>
                                                     <a href="{{ route('manager.roomtypes.index', ['id' => $hotel->id]) }}" class="btn btn-default">
                                                         Zimmertypen

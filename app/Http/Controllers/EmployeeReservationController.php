@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ReservationController extends Controller
+class EmployeeReservationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -89,7 +89,7 @@ class ReservationController extends Controller
 
         $reservation = new Reservation();
         $reservation->name = $request->get('name');
-        $reservation->name = $request->get('telephone');
+        $reservation->telephone = $request->get('telephone');
         $reservation->firstname = $request->get('firstname');
         $reservation->email = $request->get('email');
         $reservation->price = $request->get('price');
