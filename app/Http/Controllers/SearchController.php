@@ -21,7 +21,11 @@ class SearchController extends Controller
         $from = $request->get('anreisedatum');
         $to = $request->get('abreiseatum');
         $category = Category::find($request->get('zimmerKategorie'));
-        $attributes = Attribute::wherein('id', $request->get('zusatzleistung'))->get();
+        if($request->get('zusatzleistung') != null && count($request->get('zusatzleistung'))){
+            $attributes = Attribute::wherein('id', $request->get('zusatzleistung'))->get();
+        } else {
+            $attributes = null;
+        }
 
         $roomtypes = Roomtype::searchByDateAndMore($from, $to, $attributes, $category, $ort, $anzahl);
 

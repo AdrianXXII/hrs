@@ -77,7 +77,7 @@ class Roomtype extends Model
         $roomtypes = self::searchByDate($startDate,$endDate);
         return $roomtypes->filter(function($value) use ($attributes, $category, $ort, $anzahl){
             $allowed = true;
-            if($attributes != null){
+            if($attributes != null && $attributes->count() > 0){
                 foreach($attributes as $attribute){
                     if($attribute->hotel_atr == true){
                         $allowed = ($allowed && $value->hotel->attributes()->get()->contains($attribute));
@@ -95,7 +95,6 @@ class Roomtype extends Model
             if($anzahl != null && $anzahl > 0 ){
                 $allowed = $allowed && ($value->category->number_of_beds >= $anzahl);
             }
-
             return $allowed;
         });
     }

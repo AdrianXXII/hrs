@@ -73,13 +73,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="lastname" class="col-md-4 control-label">Von</label>
+                                        <label for="lastname" class="col-md-4 control-label">Anreisedatum</label>
                                         <div class="col-md-6">
                                             {{ (new \Carbon\Carbon($reservation->reservation_start))->format('d.m.Y') }}
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="lastname" class="col-md-4 control-label">Bis</label>
+                                        <label for="lastname" class="col-md-4 control-label">Abreisedatum</label>
                                         <div class="col-md-6">
                                             {{ (new \Carbon\Carbon($reservation->reservation_end))->format('d.m.Y') }}
                                         </div>

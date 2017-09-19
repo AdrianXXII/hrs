@@ -24,15 +24,17 @@ class ReserveStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required', 'Sie müssen Ihren Namen angeben',
-            'name.max', 'Ihr Name darf nicht länger als 30 Zeichen sein',
-            'name.min', 'Ihr Name darf nicht kürzer als 2 Zeichen sein',
-            'firstname.required', 'Sie müssen Ihren Vornamen angeben',
-            'firstname.max', 'Ihr Vorname darf nicht länger als 30 Zeichen sein',
-            'firstname.min', 'Ihr Vorname darf nicht kürzer als 2 Zeichen sein',
+            'name.required' => 'Sie müssen Ihren Namen angeben',
+            'name.max' => 'Ihr Name darf nicht länger als 30 Zeichen sein',
+            'name.min' => 'Ihr Name darf nicht kürzer als 2 Zeichen sein',
+            'firstname.required' => 'Sie müssen Ihren Vornamen angeben',
+            'firstname.max' => 'Ihr Vorname darf nicht länger als 30 Zeichen sein',
+            'firstname.min' => 'Ihr Vorname darf nicht kürzer als 2 Zeichen sein',
             'email.requiredd' => 'Sie müssen eine E-Mail Adresse angeben!',
             'email.email' => 'Die E-Mail Adresse muss eine valide E-Mail Adresse sein',
             'email.max' => 'Die E-Mail Adresse ist zu lang',
+            'telephone.required' => 'Die Telefonnummer fehlt!',
+            'telephone.max' => 'Die Telefonnummer ist zu lang',
             'startDatum.required' => 'Sie müssen ein Startdatum Ihreres besuches angeben',
             'startDatum.date' => 'Das "Von" Datum muss eine Datum sein',
             'endDatum.required' => 'Sie müssen ein Enddatum Ihreres besuches angeben',

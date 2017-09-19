@@ -37,12 +37,12 @@ class GuestReservationController extends Controller
         $room = $rooms->first();
 
         if($room == null){
-            return $room;
+            return back()->withErrors(['von'=>'Keine Zimmer verfühgbar für diesen Zeitraum','bis'=>'Keine Zimmer verfühgbar für diesen Zeitraum'])->withInput();
         }
 
         $reservation = new Reservation();
         $reservation->name = $request->get('name');
-        $reservation->name = $request->get('telephone');
+        $reservation->telephone = $request->get('telephone');
         $reservation->firstname = $request->get('firstname');
         $reservation->email = $request->get('email');
         $reservation->number_of_people = $request->get('number_of_people');

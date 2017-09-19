@@ -94,7 +94,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group{{ $errors->has('startDatum') ? ' has-error' : '' }}">
-                                        <label for="startDatum" class="col-md-4 control-label">Von</label>
+                                        <label for="startDatum" class="col-md-4 control-label">Anreisedatum</label>
                                         <div class="col-md-6">
 
                                             <div class="input-group date bs-datepicker-von">
@@ -111,7 +111,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group{{ $errors->has('endDatum') ? ' has-error' : '' }}">
-                                        <label for="endDatum" class="col-md-4 control-label">Bis</label>
+                                        <label for="endDatum" class="col-md-4 control-label">Abreisedatum</label>
                                         <div class="col-md-6">
                                             <div class="input-group date bs-datepicker-bis">
                                                 <input id="endDatum" type="text" class="form-control" name="endDatum" value="{{ old('endDatum', $endDatum->format('d.m.Y')) }}">
