@@ -12,6 +12,10 @@ class RoomtypesController extends Controller
 {
     public function index(Hotel $hotel)
     {
+        if($hotel->isInactive()) {
+            return redirect()->route('manager.hotels.index');
+        }
+
         $roomtypes = $hotel->getRoomTypes();
 
         return view('manager.roomtypes.index', compact('hotel', 'roomtypes'));
@@ -19,6 +23,10 @@ class RoomtypesController extends Controller
 
     public function create(Hotel $hotel)
     {
+        if($hotel->isInactive()) {
+            return redirect()->route('manager.hotels.index');
+        }
+
         $numberOfBeds = Category::numberOfBeds();
         $categories = Category::all()->where('active', 1)->sortBy('number_of_beds');
         $attributes = Attribute::getRoomAttributes();
@@ -28,6 +36,7 @@ class RoomtypesController extends Controller
 
     public function edit($hotelid, $roomtypeid)
     {
+
         $user = \Auth::user();
         $hotel = Hotel::find($hotelid);
         $roomtype = Roomtype::find($roomtypeid);
@@ -35,7 +44,7 @@ class RoomtypesController extends Controller
         $categories = Category::all()->where('active', 1)->sortBy('number_of_beds');
         $attributes = Attribute::getRoomAttributes();
 
-        if(! $hotel->isManagedBy($user) OR $roomtype->isInactive())
+        if(! $hotel->isManagedBy($user) OR $roomtype->isInactive() OR Hotel::find($hotelid)->isInactive())
         {
             return back();
         }

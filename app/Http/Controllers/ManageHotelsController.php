@@ -21,6 +21,10 @@ class ManageHotelsController extends Controller
 
     public function edit(Hotel $hotel)
     {
+        if($hotel->isInactive()) {
+            return redirect()->route('manager.hotels.index');
+        }
+
         $user = \Auth::user();
         if(! $hotel->isManagedBy($user))
         {

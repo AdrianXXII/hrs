@@ -31,7 +31,9 @@ class AdminUpdateHotelPostRequest extends FormRequest
             'postalcode.required' => 'Sie müssen eine Postleitzahl angeben!',
             'area.required' => 'Sie müssen einen Ort angeben!',
             'phone.required' => 'Sie müssen eine Telefonnummer angeben!',
+            'phone.regex' => 'Sie müssen eine gültige Telefonnummer angeben!',
             'fax.required' => 'Sie müssen eine Faxnummer angeben!',
+            'fax.regex' => 'Sie müssen eine gültige Faxnummer angeben!',
             'email.required' => 'Sie müssen eine E-Mail Adresse angeben!',
             'email.email' => 'Sie müssen eine gültige E-Mail Adresse angeben!',
         ];
@@ -51,8 +53,12 @@ class AdminUpdateHotelPostRequest extends FormRequest
             'street' => 'required',
             'postalcode' => 'required',
             'area' => 'required',
-            'phone' => 'required',
-            'fax' => 'required',
+            'phone' => ['required',
+                        'regex:/^(?=.*[0-9])[ +()0-9]+$/'
+            ],
+            'fax' => ['required',
+                        'regex:/^(?=.*[0-9])[ +()0-9]+$/'
+            ],
             'email' => 'required|email',
             'managers' => ''
         ];
