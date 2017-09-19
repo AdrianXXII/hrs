@@ -103,16 +103,13 @@ class EmployeeReservationController extends Controller
         $reservation->roomtype()->associate($roomtype);
         $reservation->save();
 
-        $newsletters = Newsletter::WHERE('email',$request->get('email'))->get();
-
-        if($newsletters == null || $newsletters->count()){
-            $newsletter = new Newsletter();
-            $newsletter->name = $reservation->name;
-            $newsletter->firstname = $reservation->firstname;
-            $newsletter->email = $reservation->email;
-            $newsletter->active = true;
-            $newletter->save();
-        }
+        $newsletter = new Newsletter();
+        $newsletter->name = $reservation->name;
+        $newsletter->firstname = $reservation->firstname;
+        $newsletter->email = $reservation->email;
+        $newsletter->active = true;
+        $newsletter->hotel()->associate($roomtype->hotel);
+        $newsletter->save();
 
         return redirect(route('employee.reservations.index'));
     }
