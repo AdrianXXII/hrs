@@ -4,6 +4,15 @@
 <div class="container">
     <div class="row">
         <h1>{{ $hotel->name }}</h1>
+        @if (session('success') && session('success') === true)
+            <div id="status-alert" class="alert alert-success">
+                <strong>Senden Erfolgreich!</strong> Ihre Reservation wurde abgesendet. Sie werden bald dies bezüglich Kontaktiert.
+            </div>
+        @elseif ((session('success') && session('success') === false))
+            <div id="status-alert" class="alert alert-danger">
+                <strong>Senden Fehlgeschlagen!</strong> Ihre Reservation wurde abgesendet.
+            </div>
+        @endif
         @if (! $hotel->getRooms() == null)
             @foreach ($hotel->getRoomTypes() as $roomType)
                 <div class="col-lg-4">

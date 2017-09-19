@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Hotel;
 use App\Http\Requests\ReserveStoreRequest;
+use App\Newsletter;
 use App\Reservation;
 use App\Room;
 use App\Roomtype;
@@ -40,6 +41,7 @@ class GuestReservationController extends Controller
             return back()->withErrors(['von'=>'Keine Zimmer verfühgbar für diesen Zeitraum','bis'=>'Keine Zimmer verfühgbar für diesen Zeitraum'])->withInput();
         }
 
+
         $reservation = new Reservation();
         $reservation->name = $request->get('name');
         $reservation->telephone = $request->get('telephone');
@@ -56,6 +58,17 @@ class GuestReservationController extends Controller
         $reservation->room()->associate($room);
         $reservation->roomtype()->associate($roomtype);
         $reservation->save();
+
+        $newsletters = Newsletter::WHERE('email',$request->get('email'))->get();
+
+        if($newsletters == null || $newsletters->count()){
+            $newsletter = new Newsletter();
+            $newsletter->name = $reservation->name;
+            $newsletter->firstname = $reservation->firstname;
+            $newsletter->email = $reservation->email;
+            $newsletter->active = true;
+            $newletter->save();
+        }
 
         return redirect(route("hotels.show", ['id' => $hotel->id]));
     }

@@ -1,5 +1,4 @@
 <form action="{{ route('search') }}" class="form-horizontal" method="GET">
-    {{ csrf_field() }}
 
     <div class="panel panel-primary">
         <div class="panel-heading">Hotel suchen</div>

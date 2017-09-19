@@ -91,10 +91,12 @@
                                         <div class="col-md-6">
                                             <select name="groupId" id="groupId" class="form-control">
                                                 @foreach($groups as $group)
-                                                    @if($group->id == old('groupId'))
-                                                        <option value="{{ $group->id }}" selected="selected">{{ $group->name }}</option>
-                                                    @else
-                                                        <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                                    @if($group->id != \App\Group::HOTELANGESTELLTER)
+                                                        @if($group->id == old('groupId'))
+                                                            <option value="{{ $group->id }}" selected="selected">{{ $group->name }}</option>
+                                                        @else
+                                                            <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                                        @endif
                                                     @endif
                                                 @endforeach
                                             </select>

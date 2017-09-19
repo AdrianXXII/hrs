@@ -36,9 +36,13 @@
                                         <label for="roomtype" class="col-md-4 control-label">Zimmerart</label>
                                         <select name="roomtype" class="form-control" id="roomtype">
                                             @foreach($hotels as $hotel)
-                                                @foreach($hotel->roomtypes as $roomtype)
-                                                    <option value="{{ $roomtype->id }}">{{ $hotel->name . "-" . $roomtype->title }}</option>
-                                                @endforeach
+                                                @if($hotel->active == true)
+                                                    @foreach($hotel->roomtypes as $roomtype)
+                                                        @if($roomtype->active == true)
+                                                            <option value="{{ $roomtype->id }}">{{ $hotel->name . "-" . $roomtype->title }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
                                             @endforeach
                                         </select>
                                     </div>
