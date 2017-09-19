@@ -41,17 +41,20 @@ class EmployeeReservationController extends Controller
     {
         //
         if($request->get('endDatum') == null || $request->get('startDatum') == null || $request->get('roomtype') == null){
-            // return "EndDatum; " + $request->get('endDatum') + ", StartDatum: " + $request->get('startDatum') + ", Roomtype: "+$request->get('roomtype');//
             return back()->withErrors(['rooms' => 'Sie müssen ein Zeitraum und Zimmerart angeben']);
         }
+
 
         $endDatum = new Carbon($request->get('endDatum'));
         $startDatum = new Carbon($request->get('startDatum'));
         $roomtype = Roomtype::find($request->get('roomtype'));
         $rooms = Reservation::getAvailableRooms($startDatum, $endDatum, $roomtype);
 
+        if ($roomtype == null || $roomtype->hotel == null){
+            return redirect(route('employee.reservations.index'))->withErrors(['rooms' => 'Zimmer oder Hotel ist nicht mehr aktive.']);
+        }
+
         if ($rooms == null || $rooms->count() == 0 ){
-            //return $rooms;//
             return back()->withErrors(['rooms' => 'Keine Zimmer sind verfügbar für diese Zimmerart und Datum.']);
         }
 
@@ -72,6 +75,10 @@ class EmployeeReservationController extends Controller
         $startDate = new Carbon($request->get('startDatum'));
         $roomtype = Roomtype::find($request->get('roomtypeId'));
         $room = Room::find($request->get('roomId'));
+
+        if ($roomtype == null || $roomtype->hotel == null){
+            return redirect(route('employee.reservations.index'))->withErrors(['rooms' => 'Zimmer oder Hotel ist nicht mehr aktive.']);
+        }
 
         if($roomtype != null){
             $rooms = Room::getAvailbleRooms($startDate, $endDate, $roomtype);
@@ -123,9 +130,18 @@ class EmployeeReservationController extends Controller
     public function edit(Reservation $reservation)
     {
         //
+        if($reservation->active == false){
+            return redirect(route('employee.reservations.index'))->withErrors(['rooms' => 'Reservation ist nicht mehr aktive.']);
+        }
+
         $rooms = Reservation::getAvailableRooms($reservation->reservation_start, $reservation->reservation_end, $reservation->roomtype);
         $rooms->push($reservation->room);
         $hotel = $reservation->roomtype->hotel;
+
+        if ($reservation->roomtype == null || $hotel == null){
+            return redirect(route('employee.reservations.index'))->withErrors(['rooms' => 'Zimmer oder Hotel ist nicht mehr aktive.']);
+        }
+
         return view('employee.reservations.edit', compact('hotel','rooms','reservation'));
     }
 
@@ -140,7 +156,7 @@ class EmployeeReservationController extends Controller
     {
         //
         if($reservation->active == false){
-            return redirect(route('employee.reservations.index'));
+            return redirect(route('employee.reservations.index'))->withErrors(['rooms' => 'Reservation ist nicht mehr aktive.']);
         }
         $room = Room::find($request->get('roomId'));
         if($reservation->roomtype != null){

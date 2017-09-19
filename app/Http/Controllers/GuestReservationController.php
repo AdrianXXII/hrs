@@ -67,6 +67,6 @@ class GuestReservationController extends Controller
         $newsletter->hotel()->associate($roomtype->hotel);
         $newsletter->save();
 
-        return redirect(route("hotels.show", ['id' => $hotel->id]));
+        return redirect(route("hotels.show", ['id' => $hotel->id]))->with(['success' => true]);
     }
 }
