@@ -8717,3 +8717,10 @@ button.close {
   text-align: left !important;
 }
 
+.roomtype-img {
+  max-height: 132.75px;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+

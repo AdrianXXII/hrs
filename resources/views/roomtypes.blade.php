@@ -9,14 +9,44 @@
         <div class="col-sm-7 col-md-7 col-lg-7">
             @foreach ($roomtypes as $roomtype)
                 <div class="col-lg-4 col-sm-6">
-                    <h2>{{ $hotel->name }}</h2>
-                    @for ($i = 0; $i < $hotel->stars; $i++)
+                    <h2>{{ $roomtype->hotel->name }}</h2>
+                    @for ($i = 0; $i < $roomtype->hotel->stars; $i++)
                         <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                     @endfor
+                    @for ($i = 0; $i < $roomtype->category->number_of_beds; $i++)
+                        <span class="glyphicon glyphicon-user pull-right" aria-hidden="true"></span>
+                    @endfor
                     <br>
-                    <img alt="hotelsample" class="img-thumbnail" src="/img/hotelsample.jpg" data-holder-rendered="true">
-                    <p>{{ $hotel->description }}</p>
-                    <p><a class="btn btn-primary" href="{{ route('hotels.show', ['hotel' => $hotel->id]) }}" role="button">Zum Hotel »</a></p>
+
+                    <div id="{{ 'carousel' . $roomtype->id }}" class="carousel slide" data-ride="carousel" style="overflow: hidden;">
+                        <ol class="carousel-indicators">
+                            <li data-target="{{ '#carousel' . $roomtype->id }}" data-slide-to="0" class="active"></li>
+                            <li data-target="{{ '#carousel' . $roomtype->id }}" data-slide-to="1"></li>
+                        </ol>
+
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="/img/hotelsample.jpg" alt="Hotel" class="img-thumbnail roomtype-img">
+                            </div>
+
+                            <div class="item">
+                                <img src="/img/roomsample.jpg" alt="Room" class="img-thumbnail roomtype-img">
+                            </div>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="{{ '#carousel' . $roomtype->id }}" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="{{ '#carousel' . $roomtype->id }}" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <strong>{{ $roomtype->title }}</strong>
+                    <p>{{ $roomtype->description }}</p>
+                    <p><a class="btn btn-primary" href="#" role="button">Reservieren »</a></p>
                 </div>
             @endforeach
         </div>

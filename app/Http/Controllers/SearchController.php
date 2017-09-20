@@ -27,10 +27,11 @@ class SearchController extends Controller
             $attributes = null;
         }
 
+        $categories = Category::where('active', true)->get();
+        $hotelAttributes = Attribute::all()->where('active', true)->where('hotel_atr', true);
         $roomtypes = Roomtype::searchByDateAndMore($from, $to, $attributes, $category, $ort, $anzahl);
 
-        dd($roomtypes);
 
-        return $roomtypes;
+        return view('roomtypes', compact('roomtypes', 'categories', 'hotelAttributes'));
     }
 }
