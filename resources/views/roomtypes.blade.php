@@ -7,6 +7,9 @@
             @include('filter')
         </div>
         <div class="col-sm-7 col-md-7 col-lg-7">
+            @if($roomtypes->count() === 0)
+                <h1>Leider keine Hotels für Ihre Suche verfügbar</h1>
+            @endif
             @foreach ($roomtypes as $roomtype)
                 <div class="col-lg-4 col-sm-6">
                     <h2>{{ $roomtype->hotel->name }}</h2>
@@ -46,7 +49,7 @@
                     </div>
                     <strong>{{ $roomtype->title }}</strong>
                     <p>{{ $roomtype->description }}</p>
-                    <p><a class="btn btn-primary" href="#" role="button">Reservieren »</a></p>
+                    <p><a class="btn btn-primary" href="{{ route('reserve.create', ['hotel' => $roomtype->hotel->id, 'roomtype' => $roomtype->id]) }}" role="button">Reservieren »</a></p>
                 </div>
             @endforeach
         </div>

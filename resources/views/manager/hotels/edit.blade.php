@@ -18,7 +18,7 @@
                                     @endfor
                                     <br>
                                     {{ $hotel->street }}<br>
-                                    {{ $hotel->postalcode . ' ' . $hotel->area }}3<br>
+                                    {{ $hotel->postalcode . ' ' . $hotel->area }}<br>
                                 </address>
 
                                 <address>

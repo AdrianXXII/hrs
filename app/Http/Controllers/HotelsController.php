@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Hotel;
 use App\Category;
+use App\Roomtype;
 use App\Attribute;
 
 class HotelsController extends Controller
@@ -25,11 +26,28 @@ class HotelsController extends Controller
 
     public function show(Hotel $hotel)
     {
+        if(request()->get('startDatum')) {
+            $startDatum = new \Carbon\Carbon(request()->get('startDatum'));
+        }
+
+        if(request()->get('endDatum')) {
+            $endDatum = new \Carbon\Carbon(request()->get('endDatum'));
+        }
+
         if($hotel->isInactive())
         {
             return back();
         }
 
-        return view('rooms', compact('hotel'));
+        if(!isset($startDatum) OR !isset($endDatum) OR $startDatum >= $endDatum) {
+            $roomTypes = $hotel->getRoomTypes();
+            $filtered = false;
+            return view('rooms', compact('hotel', 'roomTypes', 'filtered'));
+        }
+
+        //dd(Roomtype::searchByDateAndHotel($startDatum, $endDatum, $hotel));
+        $roomTypes = Roomtype::searchByDateAndHotel($startDatum, $endDatum, $hotel);
+        $filtered = true;
+        return view('rooms', compact('hotel', 'roomTypes', 'filtered'));
     }
 }

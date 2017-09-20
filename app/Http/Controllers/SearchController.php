@@ -19,7 +19,7 @@ class SearchController extends Controller
         $ort = $request->get('ort');
         $anzahl = $request->get('anzahlPersonen');
         $from = $request->get('anreisedatum');
-        $to = $request->get('abreiseatum');
+        $to = $request->get('abreisedatum');
         $category = Category::find($request->get('zimmerKategorie'));
         if($request->get('zusatzleistung') != null && count($request->get('zusatzleistung'))){
             $attributes = Attribute::wherein('id', $request->get('zusatzleistung'))->get();

@@ -3,7 +3,12 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <h1>{{ $hotel->name }}</h1>
+        @include('roomfilter')
+        <h1>{{ $hotel->name }}
+                @for ($i = 0; $i < $hotel->stars; $i++)
+                    <span class="pull-right glyphicon glyphicon-star" aria-hidden="true"></span>
+                @endfor
+        </h1>
         @if (session('success') && session('success') === true)
             <div id="status-alert" class="alert alert-success">
                 <strong>Senden Erfolgreich!</strong> Ihre Reservation wurde abgesendet. Sie werden bald dies bezüglich Kontaktiert.
@@ -13,20 +18,24 @@
                 <strong>Senden Fehlgeschlagen!</strong> Ihre Reservation wurde abgesendet.
             </div>
         @endif
-        @if (! $hotel->getRooms() == null)
-            @foreach ($hotel->getRoomTypes() as $roomType)
+        <hr>
+            @if($roomTypes->count() == 0 && $filtered)
+                <h2>Leider keine Zimmer für den angegebenen Zeitraum gefunden.</h2>
+            @endif
+            @foreach ($roomTypes as $roomType)
                 <div class="col-lg-4">
-                    <h4>{{ $roomType->title }}</h4>
-                    @for ($i = 0; $i < $roomType->category->number_of_beds ; $i++)
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    @endfor
-                    <br>
+                    <h3>{{ $roomType->title }}
+                        @for ($i = 0; $i < $roomType->category->number_of_beds ; $i++)
+                            <span class="pull-right glyphicon glyphicon-user" aria-hidden="true"></span>
+                        @endfor
+                    </h3>
                     <img alt="hotelsample" class="img-thumbnail" src="/img/roomsample.jpg" data-holder-rendered="true">
                     <p>{{ $roomType->description }}</p>
-                    <p><a class="btn btn-primary" href="{{ route('reserve.create', ['hotel' => $hotel->id, 'roomtype' => $roomType->id]) }}" role="button">Reservieren »</a></p>
+                    @if($filtered)
+                        <a class="btn btn-primary" href="{{ route('reserve.create', ['hotel' => $hotel->id, 'roomtype' => $roomType->id]) }}" role="button">Reservieren »</a>
+                    @endif
                 </div>
             @endforeach
-        @endif
     </div>
 
     <hr>
