@@ -44,7 +44,7 @@
                                     </div>
 
                                     <div class="form-group{{ $errors->has('number_of_beds') ? ' has-error' : '' }}">
-                                        <label for="number_of_beds" class="col-md-4 control-label">Anzahl Zimmer</label>
+                                        <label for="number_of_beds" class="col-md-4 control-label">Anzahl Betten</label>
                                         <div class="col-md-6">
                                             <select id="number_of_beds" name="number_of_beds" class="form-control" onchange="filterPossibleCategories(this.value)">
                                                 <option disabled selected value></option>
@@ -64,7 +64,7 @@
                                                 <option disabled selected value></option>
                                                 @foreach($categories as $category)
                                                     <option {{ $roomtype->category->name == $category->name ? 'selected' : '' }} value="{{ $category->id }}">
-                                                        {{ $category->name . ' (' . $category->number_of_beds . ' Zimmer)'}}
+                                                        {{ $category->name . ' (' . $category->number_of_beds . ' Betten)'}}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -116,12 +116,15 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section ('scripts')
     <script>
         function filterPossibleCategories(val) {
             var list = document.getElementById("category");
 
             for(var i = 0; i < list.length; i++) {
-                var matchstring = val.concat(' Zimmer');
+                var matchstring = val.concat(' Betten');
                 if (list.options[i].text.match(matchstring)) {
                     $(list.options[i]).show();
                 } else {

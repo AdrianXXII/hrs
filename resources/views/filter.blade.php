@@ -43,7 +43,9 @@
                     <div class="col-md-12">
                         <select class="form-control" name="zimmerKategorie" id="zimmerKategorie">
                             @foreach($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                <option data-numberofbeds="{{ $category->number_of_beds }}" value="{{ $category->id }}">
+                                    {{ $category->name . ' (' . $category->number_of_beds . ' Betten)' }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -68,7 +70,7 @@
 
                     <label for="zusatzleistungen" class="col-md-12 right control-label label-left">Los!</label>
                     <div class="col-md-12">
-                        <button type="submit" class="col-md-12 btn btn-primary">
+                        <button id="filterButton" type="submit" class="col-md-12 btn btn-primary">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Filtern
                         </button>
                     </div>

@@ -7,7 +7,7 @@
             @include('filter')
         </div>
         <div class="col-sm-7 col-md-7 col-lg-7">
-            @foreach ($hotels as $hotel)
+            @foreach ($roomtypes as $roomtype)
                 <div class="col-lg-4 col-sm-6">
                     <h2>{{ $hotel->name }}</h2>
                     @for ($i = 0; $i < $hotel->stars; $i++)

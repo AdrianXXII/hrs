@@ -29,6 +29,7 @@ class SearchController extends Controller
 
         $roomtypes = Roomtype::searchByDateAndMore($from, $to, $attributes, $category, $ort, $anzahl);
 
+        dd($roomtypes);
 
         return $roomtypes;
     }

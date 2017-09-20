@@ -31,12 +31,15 @@ class ManageHotelsController extends Controller
             return back();
         }
 
-        $attributes = Attribute::getHotelAttributes();
-        $users = User::where('active', true)
-            ->where('group_id', Group::HOTELANGESTELLTER)
-            ->get();
+        $staff = collect();
 
-        return view('manager.hotels.edit',compact('hotel', 'users', 'attributes'));
+        foreach($user->getHotels() as $tmp) {
+            $staff = $tmp->getStaff()->merge($staff);
+        }
+
+        $attributes = Attribute::getHotelAttributes();
+
+        return view('manager.hotels.edit',compact('hotel', 'staff', 'attributes'));
     }
 
     public function update(Hotel $hotel)

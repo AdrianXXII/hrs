@@ -112,6 +112,9 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section ('scripts')
     <script>
         function filterPossibleCategories(val) {
             var list = document.getElementById("category");

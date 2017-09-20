@@ -51,7 +51,7 @@
                                         <label for="managers" class="col-md-4 control-label">Hotelangestellte</label>
                                         <div class="col-md-6">
                                             <select size="11" name="staff[]"  class="form-control" id="managers" multiple>
-                                                @foreach ($users as $user)
+                                                @foreach ($staff as $user)
                                                     <option {{ $hotel->isManagedBy($user) ? 'selected' : '' }} value="{{ $user->id }}">
                                                         {{ $user->firstname . ' ' . $user->lastname . ' (' . $user->name . ')' }}
                                                     </option>

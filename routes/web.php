@@ -113,6 +113,17 @@ Route::group(['middleware' => 'auth'], function() {
         Route::delete('/employee/reservations/{reservation}','EmployeeReservationController@destroy')->name('employee.reservations.delete');
         Route::post('/employee/reservations','EmployeeReservationController@store')->name('employee.reservations.save');
 
+        // Hotels
+        Route::get('/employee/hotels', 'EmployeeHotelsController@index')->name('employee.hotels.index');
+
+        // Rooms
+        Route::get('/employee/hotel/{hotel}/rooms', 'EmployeeRoomsController@index')->name('employee.rooms.index');
+        Route::get('/employee/hotel/{hotel}/rooms/new', 'EmployeeRoomsController@create')->name('employee.rooms.create');
+        Route::post('/employee/hotel/{hotel}/rooms', 'EmployeeRoomsController@store')->name('employee.rooms.save');
+        Route::get('/employee/hotel/{hotel}/rooms/{room}/edit','EmployeeRoomsController@edit')->name('employee.rooms.edit');
+        Route::put('/employee/hotel/{hotel}/rooms/{room}','EmployeeRoomsController@update')->name('employee.rooms.update');
+        Route::delete('/employee/hotel/{hotel}/rooms/{room}','EmployeeRoomsController@destroy')->name('employee.rooms.delete');
+
     });
 });
 
