@@ -28,6 +28,11 @@ class NewsletterController extends Controller
 
         foreach ($recipients as $person)
         {
+            // example.com E-Mails überspringen
+            if(strpos($person->email, 'example.com')) {
+                continue;
+            }
+
             $attachmentPath = PDFGenerator::generatePDFPath('newsletter', compact('person', 'subject', 'body'));
             try {
                 \Mail::send('newsletter.main', compact('person', 'subject', 'body'), function($message) use ($person, $subject, $attachmentPath) {

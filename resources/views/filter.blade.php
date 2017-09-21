@@ -69,7 +69,7 @@ if(request()->get('zusatzleistung')) {
                     <label for="anzahlPersonen" class="col-md-12 right control-label label-left">Anzahl Personen</label>
                     <div class="col-md-12">
                         <select class="form-control" name="anzahlPersonen" id="anzahlPersonen">
-                            @for($i = 1; $i <= 30; $i++)
+                            @for($i = 1; $i <= 8; $i++)
                                 <option {{ isset($anzahlPersonen) && $anzahlPersonen == $i ? 'selected' : '' }}
                                         value="{{ $i }}">{{ $i }}
                                 </option>

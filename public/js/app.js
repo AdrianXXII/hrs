@@ -26611,7 +26611,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(127);
-module.exports = __webpack_require__(158);
+module.exports = __webpack_require__(159);
 
 
 /***/ }),
@@ -26626,8 +26626,9 @@ module.exports = __webpack_require__(158);
  */
 
 __webpack_require__(128);
+__webpack_require__(153);
 
-window.Vue = __webpack_require__(153);
+window.Vue = __webpack_require__(154);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -26635,7 +26636,7 @@ window.Vue = __webpack_require__(153);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(154));
+Vue.component('example', __webpack_require__(155));
 
 var app = new Vue({
   el: '#app'
@@ -50138,6 +50139,37 @@ module.exports = function spread(callback) {
 
 /***/ }),
 /* 153 */
+/***/ (function(module, exports) {
+
+/**
+ * Created by Adrian on 9/17/2017.
+ */
+jQuery(document).ready(function ($) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+        }
+    });
+
+    $('.bs-datepicker-von').datetimepicker({
+        format: 'DD.MM.YYYY',
+        useCurrent: false
+    });
+
+    $('.bs-datepicker-bis').datetimepicker({
+        format: 'DD.MM.YYYY',
+        useCurrent: false
+    });
+    $(".bs-datepicker-von").on("dp.change", function (e) {
+        $('.bs-datepicker-bis').data("DateTimePicker").minDate(e.date);
+    });
+    $(".bs-datepicker-bis").on("dp.change", function (e) {
+        $('.bs-datepicker-von').data("DateTimePicker").maxDate(e.date);
+    });
+});
+
+/***/ }),
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60337,15 +60369,15 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var Component = __webpack_require__(155)(
+var Component = __webpack_require__(156)(
   /* script */
-  __webpack_require__(156),
-  /* template */
   __webpack_require__(157),
+  /* template */
+  __webpack_require__(158),
   /* styles */
   null,
   /* scopeId */
@@ -60377,7 +60409,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -60474,7 +60506,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60503,7 +60535,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60532,7 +60564,7 @@ if (false) {
 }
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

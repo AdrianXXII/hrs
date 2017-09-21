@@ -3,6 +3,7 @@
     <thead>
         <tr>
             <th>Platz</th>
+            <th>Hotel</th>
             <th>Zimmernummer</th>
             <th>Zimmername und Kategorie</th>
             <th>Anzahl Übernachtungen</th>
@@ -13,6 +14,7 @@
         @foreach($statsUsingRoom as $row)
         <tr>
             <td>{{ $statsRoomUsingRank++ }}</td>
+            <td> {{ App\Room::find($row->room_id)->roomtype->hotel->name }}</td>
             <td>{{ App\Room::find($row->room_id)->room_number }}</td>
             <td>
                 {{ App\Room::find($row->room_id)->roomtype->title . ' (' . App\Room::find($row->room_id)->roomtype->category->name . ')' }}

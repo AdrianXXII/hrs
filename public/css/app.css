@@ -8724,3 +8724,7 @@ button.close {
      object-fit: cover;
 }
 
+.col-lg-4 {
+  min-height: 350px;
+}
+

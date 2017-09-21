@@ -85,7 +85,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/hrs.js') }}"></script>
 
     @yield ('scripts')
 </body>
