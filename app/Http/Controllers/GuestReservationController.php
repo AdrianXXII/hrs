@@ -20,7 +20,9 @@ class GuestReservationController extends Controller
         if($hotel->isInactive() || $roomtype->isInactive() ){
             return back();
         }
-        return view('reservation', compact('hotel','roomtype'));
+        $startDatum = $request->get('startDatum');
+        $endDatum = $request->get('endDatum');
+        return view('reservation', compact('hotel','roomtype','startDatum','endDatum'));
     }
 
     public function store(ReserveStoreRequest $request, Hotel $hotel, Roomtype $roomtype)

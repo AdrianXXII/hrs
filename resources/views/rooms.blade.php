@@ -32,7 +32,7 @@
                     <img alt="hotelsample" class="img-thumbnail" src="/img/roomsample.jpg" data-holder-rendered="true">
                     <p>{{ $roomType->description }}</p>
                     @if($filtered)
-                        <a class="btn btn-primary" href="{{ route('reserve.create', ['hotel' => $hotel->id, 'roomtype' => $roomType->id]) }}" role="button">Reservieren »</a>
+                        <a class="btn btn-primary" href="{{ route('reserve.create', ['hotel' => $hotel->id, 'roomtype' => $roomType->id, 'startDatum' => request()->get('startDatum'), 'endDatum' => request()->get('endDatum')]) }}" role="button">Reservieren »</a>
                     @endif
                 </div>
             @endforeach
