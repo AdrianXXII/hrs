@@ -21,6 +21,7 @@
                                         <tr>
                                             <th>Benutzernamen</th>
                                             <th>Email</th>
+                                            <th>Rolle</th>
                                             <th>
 
                                             </th>
@@ -31,6 +32,7 @@
                                             <tr>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
+                                                <td>{{ $user->group->name }}</td>
                                                 <td>
                                                     <a href="{{ route('users.edit', ['id' => $user->id]) }}" class="btn btn-primary">
                                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
