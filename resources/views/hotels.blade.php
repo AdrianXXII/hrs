@@ -28,13 +28,19 @@
     <script type="text/javascript">
         $(function () {
             $('#datepicker_anreise').datetimepicker({
-                format: 'DD.MM.YYYY'
+                format: 'DD.MM.YYYY',
+                minDate: new Date()
             });
-        });
 
-        $(function () {
             $('#datepicker_abreise').datetimepicker({
                 format: 'DD.MM.YYYY'
+            });
+
+            $("#datepicker_anreise").on("dp.change", function (e) {
+                $('#datepicker_abreise').data("DateTimePicker").minDate(e.date);
+            });
+            $("#datepicker_abreise").on("dp.change", function (e) {
+                $('#datepicker_anreise').data("DateTimePicker").maxDate(e.date);
             });
         });
 
