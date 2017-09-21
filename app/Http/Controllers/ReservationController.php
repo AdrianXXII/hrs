@@ -8,6 +8,7 @@ use App\Reservation;
 use App\Room;
 use App\Roomtype;
 use Carbon\Carbon;
+use App\Newsletter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
