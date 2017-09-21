@@ -49,7 +49,7 @@
                     </div>
                     <strong>{{ $roomtype->title }}</strong>
                     <p>{{ $roomtype->description }}</p>
-                    <p><a class="btn btn-primary" href="{{ route('reserve.create', ['hotel' => $roomtype->hotel->id, 'roomtype' => $roomtype->id]) }}" role="button">Reservieren »</a></p>
+                    <p><a class="btn btn-primary" href="{{ route('reserve.create', ['hotel' => $roomtype->hotel->id, 'roomtype' => $roomtype->id, 'startDatum' => request()->get('anreisedatum'), 'endDatum' => request()->get('abreisedatum')]) }}" role="button">Reservieren »</a></p>
                 </div>
             @endforeach
         </div>
