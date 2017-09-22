@@ -48,7 +48,7 @@ if(request()->get('zusatzleistung')) {
 
                     <label for="anreisedatum" class="col-md-12 right control-label label-left">Anreisedatum</label>
                     <div class="col-md-12">
-                        <div class="input-group date" id="datepicker_anreise">
+                        <div class="input-group date bs-datepicker-von" id="datepicker_anreise">
                             <input id="anreisedatum" type="text" class="form-control" name="anreisedatum" value="{{ isset($anreisedatum) ? $anreisedatum->format('d.m.Y') : (new \Carbon\Carbon())->format('d.m.Y') }}"/>
                             <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
@@ -58,7 +58,7 @@ if(request()->get('zusatzleistung')) {
 
                     <label for="abreisedatum" class="col-md-12 right control-label label-left">Abreisedatum</label>
                     <div class="col-md-12">
-                        <div class="input-group date" id="datepicker_abreise">
+                        <div class="input-group date bs-datepicker-bis" id="datepicker_abreise">
                             <input id="abreisedatum" type="text" class="form-control" name="abreisedatum" value="{{ isset($abreisedatum) ? $abreisedatum->format('d.m.Y') : '' }}" />
                             <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>

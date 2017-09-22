@@ -21,7 +21,7 @@
             <div class="col-lg-12 col-sm-12">
                 <form class="form-inline" action="{{ route('hotels.show', $hotel->id) }}" method="GET">
                     <div class="form-group">
-                        <label for="startDate" class="control-label">Von</label>
+                        <label for="startDatum" class="control-label">Von</label>
 
                         <div class="input-group date bs-datepicker-von">
                             <input type="text" class="form-control" name="startDatum" id="startDatum"

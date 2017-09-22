@@ -11,6 +11,7 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap-sass');
+    window.moment = require('moment');
     require('eonasdan-bootstrap-datetimepicker');
 } catch (e) {}
 
